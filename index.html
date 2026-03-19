@@ -95,6 +95,7 @@ function formatDate(str){
 }
 
 // Render table
+// Render table
 function render(rows){
   let html = "";
   rows.forEach((row,i)=>{
@@ -106,8 +107,9 @@ function render(rows){
       else if(j==0){ // Date
         html += "<td>"+formatDate(c)+"</td>";
       }
-      else if(j==6){ // Apply link
-        html += "<td><a target='_blank' href='"+c+"'>Link to Apply</a></td>";
+      else if(j==6){ // Apply link column
+        const link = c.trim();
+        html += "<td><a href='"+link+"' target='_blank'>Link to Apply</a></td>";
       }
       else{
         html += "<td>"+c+"</td>";
