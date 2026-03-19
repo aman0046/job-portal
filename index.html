@@ -228,6 +228,9 @@ OFFCAMPUS PHODENGE
 <div class="subtitle">
 Join our community for daily Software Engineer jobs 🚀
 </div>
+<div id="liveUsers">
+Loading users...
+</div>
 
 </div>
 
@@ -477,6 +480,40 @@ render(allRows);
 document.getElementById("search").oninput = filter;
 document.getElementById("expFilter").onchange = filter;
 
+
+</script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+<script>
+
+const firebaseConfig = {
+apiKey: "AIzaSyDyNSTmHw-VoKyn-pAMvWCodGre2IDw-NY",
+authDomain: "job-portal-count.firebaseapp.com",
+databaseURL: "https://job-portal-count-default-rtdb.firebaseio.com",
+projectId: "job-portal-count",
+};
+
+firebase.initializeApp(firebaseConfig);
+
+const db = firebase.database();
+
+const userRef = db.ref("activeUsers");
+
+const myId = Date.now() + "_" + Math.random();
+
+userRef.child(myId).set(true);
+
+userRef.child(myId).onDisconnect().remove();
+
+userRef.on("value", snap => {
+
+const count = snap.numChildren();
+
+document.getElementById("liveUsers").innerText =
+"🔥 " + count + " users online";
+
+});
 
 </script>
 
