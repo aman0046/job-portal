@@ -39,11 +39,12 @@ a {color:blue; font-weight:bold; text-decoration:underline;}
 <table id="table"></table>
 
 <script>
+// ✅ Use your AllOrigins + Public sheet link
 const url = "https://api.allorigins.win/raw?url=https://docs.google.com/spreadsheets/d/1NPbo0DKDRRLVlahvahKweP4pHmEtntY7hCingz3Z78U/gviz/tq?tqx=out:csv&sheet=Public";
 
 let allRows = [];
 
-// CSV parser handles quotes, commas, line breaks
+// CSV parser handles quotes, commas, and line breaks
 function parseCSV(text) {
   const rows = [];
   let cur = '';
@@ -83,7 +84,7 @@ function parseCSV(text) {
   return rows.map(r=>r.map(c=>c.trim()));
 }
 
-// Format date as 17 March 2026
+// Format date nicely
 function formatDate(str){
   if(!str) return "";
   let d = new Date(str);
@@ -104,7 +105,7 @@ function render(rows){
       else if(j==0){
         html += "<td>"+formatDate(c)+"</td>";
       }
-      else if(j==6){ // Apply link column
+      else if(j==4){ // ✅ Apply link column
         const link = c.trim();
         html += "<td><a href='"+link+"' target='_blank'>Link to Apply</a></td>";
       }
@@ -147,7 +148,7 @@ fetch(url)
 document.getElementById("search").oninput = filter;
 document.getElementById("expFilter").onchange = filter;
 document.getElementById("typeFilter").onchange = filter;
-
 </script>
+
 </body>
 </html>
