@@ -480,11 +480,6 @@ render(allRows);
 document.getElementById("search").oninput = filter;
 document.getElementById("expFilter").onchange = filter;
 
-
-</script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-
 <script>
 
 const firebaseConfig = {
@@ -500,11 +495,23 @@ const db = firebase.database();
 
 const userRef = db.ref("activeUsers");
 
-const myId = Date.now() + "_" + Math.random();
+// FIXED ID
+const myId =
+Date.now() + "_" + Math.floor(Math.random()*1000000);
+
+const connectedRef = db.ref(".info/connected");
+
+connectedRef.on("value", function(snap) {
+
+if (snap.val() === true) {
 
 userRef.child(myId).set(true);
 
 userRef.child(myId).onDisconnect().remove();
+
+}
+
+});
 
 userRef.on("value", snap => {
 
@@ -516,8 +523,6 @@ document.getElementById("liveUsers").innerText =
 });
 
 </script>
-
-
 
 <footer class="footer">
 
