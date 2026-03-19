@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Software Jobs Portal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body { font-family: Arial; padding: 10px; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #ddd; padding: 8px; }
+    th { background: #111; color: white; }
+    a { color: blue; }
+  </style>
+</head>
+
+<body>
+
+<h2>Latest Software Jobs</h2>
+
+<table id="jobs"></table>
+
+<script>
+const sheetURL =
+"https://docs.google.com/spreadsheets/d/1NPbo0DKDRRLVlahvahKweP4pHmEtntY7hCingz3Z78U";
+
+fetch(sheetURL)
+.then(res => res.text())
+.then(data => {
+
+const rows = data.split("\n");
+let html = "";
+
+rows.forEach((row, i) => {
+
+const cols = row.split(",");
+
+html += "<tr>";
+
+cols.forEach((c, j) => {
+
+if(i==0){
+html += "<th>"+c+"</th>";
+}else if(j==6){
+html += "<td><a href='"+c+"' target='_blank'>Apply</a></td>";
+}else{
+html += "<td>"+c+"</td>";
+}
+
+});
+
+html += "</tr>";
+
+});
+
+document.getElementById("jobs").innerHTML = html;
+
+});
+</script>
+
+</body>
+</html>
