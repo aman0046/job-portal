@@ -188,6 +188,37 @@ tr:nth-child(odd){
 background:#ffffff;
 }
 
+.newBadge{
+position:absolute;
+right:10px;
+top:11px;
+
+background:linear-gradient(45deg,#ff9800,#ff3d00);
+color:white;
+
+font-size:10px;
+padding:2px 6px;
+border-radius:8px;
+
+font-weight:bold;
+
+animation:pulseBadge 1.5s infinite;
+box-shadow:0 0 6px rgba(255,100,0,0.7);
+}
+
+@keyframes pulseBadge{
+
+0%{transform:scale(1);}
+50%{transform:scale(1.1);}
+100%{transform:scale(1);}
+
+}
+
+.companyCell{
+position:relative;
+padding-right:50px;
+}
+
 
 /* eligibility colors */
 
@@ -381,7 +412,19 @@ html += "<th>"+c+"</th>";
 
 else if(j==0){
 html += "<td>"+formatDate(c)+"</td>";
-}else if(j==3){
+}
+else if(j==1){
+
+let badge = "";
+
+if(isToday(row[0])){
+badge = " <span class='newBadge'>NEW</span>";
+}
+
+html += "<td class='companyCell'>"+c+badge+"</td>";
+
+}
+else if(j==3){
 
 let cls="badge";
 
@@ -450,6 +493,21 @@ return ok;
 });
 
 render(filtered);
+
+}
+
+function isToday(dateStr){
+
+if(!dateStr) return false;
+
+let d = new Date(dateStr);
+let t = new Date();
+
+return (
+d.getDate() === t.getDate() &&
+d.getMonth() === t.getMonth() &&
+d.getFullYear() === t.getFullYear()
+);
 
 }
 
