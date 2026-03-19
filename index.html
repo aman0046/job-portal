@@ -67,6 +67,43 @@ footer a {
 color:#00d4ff;
 }
 
+.topBanner{
+background:#2f5d50;
+color:#fff;
+padding:12px;
+font-size:14px;
+}
+
+.topBanner a{
+color:#ffd54f;
+font-weight:bold;
+}
+
+tr:nth-child(even){
+background:#f2f2f2;
+}
+
+tr:nth-child(odd){
+background:#ffffff;
+}
+
+
+/* eligibility colors */
+
+.badge{
+padding:4px 8px;
+border-radius:8px;
+font-size:12px;
+color:white;
+display:inline-block;
+}
+
+.intern{background:#4caf50;}
+.fresher{background:#009688;}
+.y1{background:#607d8b;}
+.y2{background:#795548;}
+.y3{background:#ff9800;}
+
 @media (max-width:600px){
 th, td{font-size:12px; padding:6px;}
 }
@@ -78,6 +115,35 @@ th, td{font-size:12px; padding:6px;}
 <header>
 OffCampus Phodenge (Aman Chowdhury)
 </header>
+
+<div class="topBanner">
+
+<b>OFFCAMPUS PHODENGE → Join our community:</b><br>
+
+1) WhatsApp Channel:
+<a href="https://whatsapp.com/channel/0029Va9Q0lkDZ4LYNx6ukw2u" target="_blank">
+Link
+</a>
+
+<br>
+
+2) Telegram Community:
+<a href="https://telegram.me/offcampus_phodenge" target="_blank">
+Link
+</a>
+
+<br>
+
+Connect with me:
+<a href="https://www.linkedin.com/in/amanchowdhury046/" target="_blank">
+LinkedIn
+</a>
+
+<br>
+
+Doston mei bhi share kr dena ❤️
+
+</div>
 
 
 <div class="controls">
@@ -206,8 +272,19 @@ html += "<th>"+c+"</th>";
 
 else if(j==0){
 html += "<td>"+formatDate(c)+"</td>";
-}
+}else if(j==3){
 
+let cls="badge";
+
+if(c.includes("Intern")) cls+=" intern";
+else if(c.includes("Fresher")) cls+=" fresher";
+else if(c.includes("1+")) cls+=" y1";
+else if(c.includes("2+")) cls+=" y2";
+else if(c.includes("3+")) cls+=" y3";
+
+html += "<td><span class='"+cls+"'>"+c+"</span></td>";
+
+}
 else if(j==4){
 
 const link = c.trim();
