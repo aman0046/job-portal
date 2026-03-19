@@ -29,9 +29,14 @@ margin:5px;
 width:100%;
 max-width:200px;
 }
+.tableWrap{
+width:100%;
+overflow-x:auto;
+}
 
 table {
 width:100%;
+min-width:900px;
 border-collapse:collapse;
 background:white;
 overflow-x:auto;
@@ -55,16 +60,36 @@ font-weight:bold;
 text-decoration:underline;
 }
 
-footer {
+.footer{
 background:#111;
 color:white;
 padding:20px;
-margin-top:20px;
-font-size:14px;
+margin-top:30px;
 }
 
-footer a {
+.footerBox{
+margin-bottom:20px;
+}
+
+.footer h3{
+color:#ffd54f;
+margin-bottom:5px;
+}
+
+.footer a{
 color:#00d4ff;
+text-decoration:none;
+font-weight:bold;
+}
+
+.footer a:hover{
+text-decoration:underline;
+}
+
+.footerNote{
+margin-top:15px;
+font-size:13px;
+color:#ccc;
 }
 
 .topBanner{
@@ -162,7 +187,9 @@ Doston mei bhi share kr dena ❤️
 </div>
 
 
+<div class="tableWrap">
 <table id="table"></table>
+</div>
 
 
 
@@ -376,69 +403,71 @@ document.getElementById("expFilter").onchange = filter;
 
 
 
-<footer>
+<footer class="footer">
 
-<b>Join our community:</b>
-<br><br>
+<div class="footerBox">
 
-WhatsApp Channel:
-<br>
+<h3>Join our community 🚀</h3>
+
+<p>
 <a href="https://whatsapp.com/channel/0029Va9Q0lkDZ4LYNx6ukw2u" target="_blank">
-https://whatsapp.com/channel/0029Va9Q0lkDZ4LYNx6ukw2u
+WhatsApp Channel
 </a>
+</p>
 
-<br><br>
-
-WhatsApp Group:
-<br>
+<p>
 <a href="https://chat.whatsapp.com/CSL7Vd3L5ujHYUALFMm5xQ" target="_blank">
-https://chat.whatsapp.com/CSL7Vd3L5ujHYUALFMm5xQ
+WhatsApp Group
 </a>
+</p>
 
-<br><br>
-
-Telegram Community:
-<br>
+<p>
 <a href="https://telegram.me/offcampus_phodenge" target="_blank">
-https://telegram.me/offcampus_phodenge
+Telegram Community
 </a>
+</p>
 
-<br><br>
-
-Telegram Discussion:
-<br>
+<p>
 <a href="https://t.me/offcampusphodengediscussion" target="_blank">
-https://t.me/offcampusphodengediscussion
+Telegram Discussion
 </a>
+</p>
 
-<br><br>
+</div>
 
-Join us on:
-<br>
 
-LinkedIn:
+<div class="footerBox">
+
+<h3>Follow me 👨‍💻</h3>
+
+<p>
 <a href="https://www.linkedin.com/in/amanchowdhury046/" target="_blank">
-Profile
+LinkedIn
 </a>
+</p>
 
-<br>
-
-Telegram:
+<p>
 <a href="https://t.me/offcampus_phodenge" target="_blank">
-Channel
+Telegram
 </a>
+</p>
 
-<br>
-
-Instagram:
+<p>
 <a href="https://www.instagram.com/aman_chowdhury_046/" target="_blank">
-Profile
+Instagram
 </a>
+</p>
 
-<br><br>
+</div>
 
-Like the video and comment the best thing about the video.
-Give feedback to improve upcoming content.
+
+<div class="footerNote">
+
+Like the video ❤️  
+Comment best thing about video  
+Give feedback to improve next content
+
+</div>
 
 </footer>
 
