@@ -133,12 +133,46 @@ display:inline-block;
 th, td{font-size:12px; padding:6px;}
 }
 
+/* dark mode */
+.darkBtn{
+margin-left:10px;
+padding:5px 8px;
+cursor:pointer;
+}
+
+.dark body{
+background:#111;
+color:#eee;
+}
+
+.dark table{
+background:#222;
+color:white;
+}
+
+.dark th{
+background:#000;
+}
+
+.dark .controls{
+background:#222;
+}
+
+.dark footer{
+background:#000;
+}
+
+  
+
 </style>
 </head>
 <body>
 
 <header>
 OffCampus Phodenge (Aman Chowdhury)
+<button onclick="toggleDark()" class="darkBtn">
+Dark Mode
+</button>
 </header>
 
 <div class="topBanner">
@@ -397,6 +431,10 @@ render(allRows);
 
 document.getElementById("search").oninput = filter;
 document.getElementById("expFilter").onchange = filter;
+
+function toggleDark(){
+document.body.classList.toggle("dark");
+}
 
 
 </script>
