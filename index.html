@@ -93,15 +93,91 @@ color:#ccc;
 }
 
 .topBanner{
-background:#2f5d50;
-color:#fff;
-padding:12px;
-font-size:14px;
+
+background:linear-gradient(135deg,#1f4037,#2c7744);
+
+color:white;
+
+padding:15px;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+flex-wrap:wrap;
+
 }
 
-.topBanner a{
-color:#ffd54f;
+
+.bannerLeft{
+max-width:60%;
+}
+
+
+.title{
+font-size:22px;
 font-weight:bold;
+letter-spacing:1px;
+}
+
+
+.subtitle{
+font-size:13px;
+margin-top:3px;
+color:#ddd;
+}
+
+
+.bannerRight{
+display:flex;
+gap:8px;
+flex-wrap:wrap;
+}
+
+
+.btn{
+
+padding:6px 10px;
+
+border-radius:6px;
+
+text-decoration:none;
+
+font-size:13px;
+
+font-weight:bold;
+
+color:white;
+
+}
+
+
+.wa{background:#25D366;}
+
+.tg{background:#0088cc;}
+
+.li{background:#0077b5;}
+
+
+.btn:hover{
+opacity:0.85;
+}
+
+
+@media(max-width:700px){
+
+.topBanner{
+flex-direction:column;
+align-items:flex-start;
+gap:10px;
+}
+
+.bannerLeft{
+max-width:100%;
+}
+
 }
 
 tr:nth-child(even){
@@ -143,33 +219,36 @@ OffCampus Phodenge (Aman Chowdhury)
 
 <div class="topBanner">
 
-<b>OFFCAMPUS PHODENGE → Join our community:</b><br>
+<div class="bannerLeft">
 
-1) WhatsApp Channel:
-<a href="https://whatsapp.com/channel/0029Va9Q0lkDZ4LYNx6ukw2u" target="_blank">
-Link
-</a>
+<div class="title">
+OFFCAMPUS PHODENGE
+</div>
 
-<br>
-
-2) Telegram Community:
-<a href="https://telegram.me/offcampus_phodenge" target="_blank">
-Link
-</a>
-
-<br>
-
-Connect with me:
-<a href="https://www.linkedin.com/in/amanchowdhury046/" target="_blank">
-LinkedIn
-</a>
-
-<br>
-
-Doston mei bhi share kr dena ❤️
+<div class="subtitle">
+Join our community for daily Software Engineer jobs 🚀
+</div>
 
 </div>
 
+
+<div class="bannerRight">
+
+<a href="https://whatsapp.com/channel/0029Va9Q0lkDZ4LYNx6ukw2u" target="_blank" class="btn wa">
+WhatsApp Channel
+</a>
+
+<a href="https://telegram.me/offcampus_phodenge" target="_blank" class="btn tg">
+Telegram
+</a>
+
+<a href="https://www.linkedin.com/in/amanchowdhury046/" target="_blank" class="btn li">
+LinkedIn
+</a>
+
+</div>
+
+</div>
 
 <div class="controls">
 
