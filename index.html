@@ -3,20 +3,18 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Software Jobs Portal</title>
-
 <style>
 body {font-family: Arial; margin:0; background:#f5f5f5;}
 header {background:#111; color:white; padding:12px; text-align:center; font-size:20px;}
 .controls {padding:10px; background:white; position:sticky; top:0; z-index:10;}
 input, select {padding:8px; margin:5px; width:100%; max-width:200px;}
 table {width:100%; border-collapse:collapse; background:white;}
-th, td {padding:8px; border:1px solid #ddd; font-size:14px;}
+th, td {padding:8px; border:1px solid #ddd; font-size:14px; vertical-align:top;}
 th {background:#222; color:white;}
 a {color:blue; font-weight:bold; text-decoration:underline;}
 @media (max-width:600px){ th, td{font-size:12px; padding:6px;} }
 </style>
 </head>
-
 <body>
 
 <header>Software Jobs Portal</header>
@@ -41,31 +39,62 @@ a {color:blue; font-weight:bold; text-decoration:underline;}
 <table id="table"></table>
 
 <script>
-
+// Sheet link via CORS proxy
 const url = "https://api.allorigins.win/raw?url=https://docs.google.com/spreadsheets/d/1NPbo0DKDRRLVlahvahKweP4pHmEtntY7hCingz3Z78U/gviz/tq?tqx=out:csv&sheet=Public";
 
 let allRows = [];
 
-function cleanCell(c){
-  return c.replace(/^"|"$/g,"").trim();
+// CSV parser to handle quotes, commas, line breaks
+function parseCSV(text) {
+  const rows = [];
+  let cur = '';
+  let row = [];
+  let insideQuotes = false;
+
+  for(let i=0;i<text.length;i++){
+    const char = text[i];
+    if(char === '"') {
+      if(text[i+1] === '"'){ // double quote escape
+        cur += '"';
+        i++;
+      } else {
+        insideQuotes = !insideQuotes;
+      }
+    }
+    else if(char === ',' && !insideQuotes) {
+      row.push(cur);
+      cur='';
+    }
+    else if((char === '\n' || char === '\r') && !insideQuotes){
+      if(cur || row.length>0){
+        row.push(cur);
+        rows.push(row);
+        row=[];
+        cur='';
+      }
+    } 
+    else {
+      cur += char;
+    }
+  }
+  if(cur || row.length>0){
+    row.push(cur);
+    rows.push(row);
+  }
+  // Trim all cells
+  return rows.map(r=>r.map(c=>c.trim()));
 }
 
+// Date formatting
 function formatDate(str){
   if(!str) return "";
   let d = new Date(str);
   if(isNaN(d)) return str;
   const options = { day: "numeric", month: "long", year: "numeric" };
-  return d.toLocaleDateString("en-GB", options); // 17 March 2026
+  return d.toLocaleDateString("en-GB", options);
 }
 
-fetch(url)
-.then(r => r.text())
-.then(data => {
-  const rows = data.trim().split("\n").map(r => r.split(",").map(cleanCell));
-  allRows = rows;
-  render(rows);
-});
-
+// Render table
 function render(rows){
   let html = "";
   rows.forEach((row,i)=>{
@@ -74,7 +103,7 @@ function render(rows){
       if(i==0){
         html += "<th>"+c+"</th>";
       }
-      else if(j==0){ // Date column
+      else if(j==0){ // Date
         html += "<td>"+formatDate(c)+"</td>";
       }
       else if(j==6){ // Apply link
@@ -89,16 +118,13 @@ function render(rows){
   document.getElementById("table").innerHTML = html;
 }
 
-document.getElementById("search").oninput = filter;
-document.getElementById("expFilter").onchange = filter;
-document.getElementById("typeFilter").onchange = filter;
-
+// Filter
 function filter(){
-  let text = document.getElementById("search").value.toLowerCase();
-  let exp = document.getElementById("expFilter").value;
-  let type = document.getElementById("typeFilter").value;
+  const text = document.getElementById("search").value.toLowerCase();
+  const exp = document.getElementById("expFilter").value;
+  const type = document.getElementById("typeFilter").value;
 
-  let filtered = allRows.filter((row,i)=>{
+  const filtered = allRows.filter((row,i)=>{
     if(i==0) return true;
     let ok = true;
     if(text && !row.join(" ").toLowerCase().includes(text)) ok=false;
@@ -110,7 +136,19 @@ function filter(){
   render(filtered);
 }
 
-</script>
+// Fetch CSV
+fetch(url)
+.then(r=>r.text())
+.then(data=>{
+  allRows = parseCSV(data);
+  render(allRows);
+});
 
+// Event listeners
+document.getElementById("search").oninput = filter;
+document.getElementById("expFilter").onchange = filter;
+document.getElementById("typeFilter").onchange = filter;
+
+</script>
 </body>
 </html>
