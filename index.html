@@ -39,12 +39,11 @@ a {color:blue; font-weight:bold; text-decoration:underline;}
 <table id="table"></table>
 
 <script>
-// Sheet link via CORS proxy
-const url = "https://api.allorigins.win/raw?url=https://docs.google.com/spreadsheets/d/1NPbo0DKDRRLVlahvahKweP4pHmEtntY7hCingz3Z78U/gviz/tq?tqx=out:csv&sheet=Public";
+const url = "https://api.allorigins.win/raw?url=https://docs.google.com/spreadsheets/d/1NPbo0DKDRRLVlahvahKweP4pHmEtntY7hCingz3Z78U/gviz/tq?tqx=out:csv&sheet=Sheet1";
 
 let allRows = [];
 
-// CSV parser to handle quotes, commas, line breaks
+// CSV parser handles quotes, commas, line breaks
 function parseCSV(text) {
   const rows = [];
   let cur = '';
@@ -54,7 +53,7 @@ function parseCSV(text) {
   for(let i=0;i<text.length;i++){
     const char = text[i];
     if(char === '"') {
-      if(text[i+1] === '"'){ // double quote escape
+      if(text[i+1] === '"'){
         cur += '"';
         i++;
       } else {
@@ -81,11 +80,10 @@ function parseCSV(text) {
     row.push(cur);
     rows.push(row);
   }
-  // Trim all cells
   return rows.map(r=>r.map(c=>c.trim()));
 }
 
-// Date formatting
+// Format date as 17 March 2026
 function formatDate(str){
   if(!str) return "";
   let d = new Date(str);
@@ -95,7 +93,6 @@ function formatDate(str){
 }
 
 // Render table
-// Render table
 function render(rows){
   let html = "";
   rows.forEach((row,i)=>{
@@ -104,7 +101,7 @@ function render(rows){
       if(i==0){
         html += "<th>"+c+"</th>";
       }
-      else if(j==0){ // Date
+      else if(j==0){
         html += "<td>"+formatDate(c)+"</td>";
       }
       else if(j==6){ // Apply link column
@@ -120,7 +117,7 @@ function render(rows){
   document.getElementById("table").innerHTML = html;
 }
 
-// Filter
+// Filter function
 function filter(){
   const text = document.getElementById("search").value.toLowerCase();
   const exp = document.getElementById("expFilter").value;
@@ -138,7 +135,7 @@ function filter(){
   render(filtered);
 }
 
-// Fetch CSV
+// Fetch CSV and render
 fetch(url)
 .then(r=>r.text())
 .then(data=>{
