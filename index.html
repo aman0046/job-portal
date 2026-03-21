@@ -1,658 +1,734 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>OffCampus Phodenge</title>
-
-<style>
-body {font-family: Arial; margin:0; background:#f5f5f5;}
-
-header {
-background:#111;
-color:white;
-padding:12px;
-text-align:center;
-font-size:20px;
-}
-
-.controls {
-padding:10px;
-background:white;
-position:sticky;
-top:0;
-z-index:10;
-}
-
-input, select {
-padding:8px;
-margin:5px;
-width:100%;
-max-width:200px;
-}
-.tableWrap{
-width:100%;
-overflow-x:auto;
-}
-
-table {
-width:100%;
-min-width:900px;
-border-collapse:collapse;
-background:white;
-overflow-x:auto;
-}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>OffCampus Phodenge</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            margin: 0;
+            background: #f5f5f5;
+        }
+
+        /* NAVBAR */
+
+        .navbar {
+            background: #000;
+            color: white;
+            display: flex;
+            flex-direction: row-reverse;
+            gap: 20px;
+            padding: 10px 15px;
+            font-size: 14px;
+            align-items: center;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 5px 8px;
+            border-radius: 6px;
+        }
+
+        .navbar a:hover {
+            background: #333;
+        }
+
+        header {
+            background: #111;
+            color: white;
+            padding: 12px;
+            text-align: center;
+            font-size: 20px;
+        }
+
+        .controls {
+            padding: 10px;
+            background: white;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        input,
+        select {
+            padding: 8px;
+            margin: 5px;
+            width: 100%;
+            max-width: 200px;
+        }
+
+        .tableWrap {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            min-width: 900px;
+            border-collapse: collapse;
+            background: white;
+            overflow-x: auto;
+        }
+
+        th,
+        td {
+            padding: 8px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+            vertical-align: top;
+        }
+
+        th {
+            background: #222;
+            color: white;
+        }
 
-th, td {
-padding:8px;
-border:1px solid #ddd;
-font-size:14px;
-vertical-align:top;
-}
+        a {
+            color: blue;
+            font-weight: bold;
+            text-decoration: underline;
+        }
 
-th {
-background:#222;
-color:white;
-}
+        .footer {
+            background: #111;
+            color: white;
+            padding: 20px;
+            margin-top: 30px;
+        }
 
-a {
-color:blue;
-font-weight:bold;
-text-decoration:underline;
-}
+        .footerBox {
+            margin-bottom: 20px;
+        }
 
-.footer{
-background:#111;
-color:white;
-padding:20px;
-margin-top:30px;
-}
+        .footer h3 {
+            color: #ffd54f;
+            margin-bottom: 5px;
+        }
 
-.footerBox{
-margin-bottom:20px;
-}
+        .footer a {
+            color: #00d4ff;
+            text-decoration: none;
+            font-weight: bold;
+        }
 
-.footer h3{
-color:#ffd54f;
-margin-bottom:5px;
-}
+        .footer a:hover {
+            text-decoration: underline;
+        }
 
-.footer a{
-color:#00d4ff;
-text-decoration:none;
-font-weight:bold;
-}
+        .footerNote {
+            margin-top: 15px;
+            font-size: 13px;
+            color: #ccc;
+        }
 
-.footer a:hover{
-text-decoration:underline;
-}
+        .topBanner {
 
-.footerNote{
-margin-top:15px;
-font-size:13px;
-color:#ccc;
-}
+            background: linear-gradient(135deg, #1f4037, #2c7744);
 
-.topBanner{
+            color: white;
 
-background:linear-gradient(135deg,#1f4037,#2c7744);
+            padding: 25px 15px;
 
-color:white;
+            display: flex;
 
-padding:25px 15px;
+            justify-content: space-between;
 
-display:flex;
+            align-items: center;
 
-justify-content:space-between;
+            flex-wrap: wrap;
 
-align-items:center;
+        }
 
-flex-wrap:wrap;
 
-}
+        .bannerLeft {
+            max-width: 60%;
+        }
 
 
-.bannerLeft{
-max-width:60%;
-}
+        .title {
+            font-size: 22px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
 
 
-.title{
-font-size:22px;
-font-weight:bold;
-letter-spacing:1px;
-}
+        .subtitle {
+            font-size: 13px;
+            margin-top: 3px;
+            color: #ddd;
+        }
 
 
-.subtitle{
-font-size:13px;
-margin-top:3px;
-color:#ddd;
-}
+        .bannerRight {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
 
 
-.bannerRight{
-display:flex;
-gap:8px;
-flex-wrap:wrap;
-}
+        .btn {
 
+            padding: 6px 10px;
 
-.btn{
+            border-radius: 6px;
 
-padding:6px 10px;
+            text-decoration: none;
 
-border-radius:6px;
+            font-size: 13px;
 
-text-decoration:none;
+            font-weight: bold;
 
-font-size:13px;
+            color: white;
 
-font-weight:bold;
+        }
 
-color:white;
 
-}
+        .wa {
+            background: #25D366;
+        }
 
+        .tg {
+            background: #0088cc;
+        }
 
-.wa{background:#25D366;}
+        .li {
+            background: #0077b5;
+        }
 
-.tg{background:#0088cc;}
 
-.li{background:#0077b5;}
+        .btn:hover {
+            opacity: 0.85;
+        }
 
 
-.btn:hover{
-opacity:0.85;
-}
+        @media(max-width:700px) {
 
+            .topBanner {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
 
-@media(max-width:700px){
+            .bannerLeft {
+                max-width: 100%;
+            }
 
-.topBanner{
-flex-direction:column;
-align-items:flex-start;
-gap:10px;
-}
+        }
 
-.bannerLeft{
-max-width:100%;
-}
+        tr:nth-child(even) {
+            background: #f2f2f2;
+        }
 
-}
+        tr:nth-child(odd) {
+            background: #ffffff;
+        }
 
-tr:nth-child(even){
-background:#f2f2f2;
-}
+        .newBadge {
+            position: absolute;
+            right: 10px;
+            top: 11px;
 
-tr:nth-child(odd){
-background:#ffffff;
-}
+            background: linear-gradient(45deg, #ff9800, #ff3d00);
+            color: white;
 
-.newBadge{
-position:absolute;
-right:10px;
-top:11px;
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 8px;
 
-background:linear-gradient(45deg,#ff9800,#ff3d00);
-color:white;
+            font-weight: bold;
 
-font-size:10px;
-padding:2px 6px;
-border-radius:8px;
+            animation: pulseBadge 1.5s infinite;
+            box-shadow: 0 0 6px rgba(255, 100, 0, 0.7);
+        }
 
-font-weight:bold;
+        @keyframes pulseBadge {
 
-animation:pulseBadge 1.5s infinite;
-box-shadow:0 0 6px rgba(255,100,0,0.7);
-}
+            0% {
+                transform: scale(1);
+            }
 
-@keyframes pulseBadge{
+            50% {
+                transform: scale(1.1);
+            }
 
-0%{transform:scale(1);}
-50%{transform:scale(1.1);}
-100%{transform:scale(1);}
+            100% {
+                transform: scale(1);
+            }
 
-}
+        }
 
-.companyCell{
-position:relative;
-padding-right:50px;
-}
+        .companyCell {
+            position: relative;
+            padding-right: 50px;
+        }
 
 
-/* eligibility colors */
+        /* eligibility colors */
 
-.badge{
-padding:4px 8px;
-border-radius:8px;
-font-size:12px;
-color:white;
-display:inline-block;
-}
+        .badge {
+            padding: 4px 8px;
+            border-radius: 8px;
+            font-size: 12px;
+            color: white;
+            display: inline-block;
+        }
 
-.intern{background:#4caf50;}
-.fresher{background:#009688;}
-.y1{background:#607d8b;}
-.y2{background:#795548;}
-.y3{background:#ff9800;}
+        .intern {
+            background: #4caf50;
+        }
 
-@media (max-width:600px){
-th, td{font-size:12px; padding:6px;}
-}
-  
-</style>
+        .fresher {
+            background: #009688;
+        }
+
+        .y1 {
+            background: #607d8b;
+        }
+
+        .y2 {
+            background: #795548;
+        }
+
+        .y3 {
+            background: #ff9800;
+        }
+
+        @media (max-width:600px) {
+
+            th,
+            td {
+                font-size: 12px;
+                padding: 6px;
+            }
+        }
+    </style>
 </head>
-<body>
 
-<!-- <header>
+<body>
+    <div class="navbar">
+        <a href="https://whatsapp.com/channel/0029Va9Q0lkDZ4LYNx6ukw2u" target="_blank">
+            💬 Community
+        </a>
+        <a href="blog/index.html">📘 Blog</a>
+
+        <a href="../index.html">🏠 Home</a>
+
+    </div>
+
+    <!-- <header>
 OffCampus Phodenge (Aman Chowdhury)
 </header> -->
 
-<div class="topBanner">
+    <div class="topBanner">
 
-<div class="bannerLeft">
+        <div class="bannerLeft">
 
-<div class="title">
-OFFCAMPUS PHODENGE
-</div>
+            <div class="title">
+                OFFCAMPUS PHODENGE
+            </div>
 
-<div class="subtitle">
-Join our community for daily Software Engineer jobs 🚀
-</div>
-<div id="liveUsers" class="subtitle">
-Loading users...
-</div>
+            <div class="subtitle">
+                Join our community for daily Software Engineer jobs 🚀
+            </div>
+            <div id="liveUsers" class="subtitle">
+                Loading users...
+            </div>
 
-</div>
+        </div>
 
 
-<div class="bannerRight">
+        <div class="bannerRight">
 
-<a href="https://whatsapp.com/channel/0029Va9Q0lkDZ4LYNx6ukw2u" target="_blank" class="btn wa">
-WhatsApp Channel
-</a>
+            <a href="https://whatsapp.com/channel/0029Va9Q0lkDZ4LYNx6ukw2u" target="_blank" class="btn wa">
+                WhatsApp Channel
+            </a>
 
-<a href="https://telegram.me/offcampus_phodenge" target="_blank" class="btn tg">
-Telegram
-</a>
+            <a href="https://telegram.me/offcampus_phodenge" target="_blank" class="btn tg">
+                Telegram
+            </a>
 
-<a href="https://www.linkedin.com/in/amanchowdhury046/" target="_blank" class="btn li">
-LinkedIn
-</a>
+            <a href="https://www.linkedin.com/in/amanchowdhury046/" target="_blank" class="btn li">
+                LinkedIn
+            </a>
 
-</div>
+        </div>
 
-</div>
+    </div>
 
-<div class="controls">
+    <div class="controls">
 
-<input type="text" id="search" placeholder="Search company / role">
+        <input type="text" id="search" placeholder="Search company / role">
 
-<select id="expFilter">
-<option value="">All Experience</option>
-<option>Intern</option>
-<option>Fresher's</option>
-<option>1+ Years</option>
-<option>2+ Years</option>
-<option>3+ Years</option>
-</select>
+        <select id="expFilter">
+            <option value="">All Experience</option>
+            <option>Intern</option>
+            <option>Fresher's</option>
+            <option>1+ Years</option>
+            <option>2+ Years</option>
+            <option>3+ Years</option>
+        </select>
 
-</div>
+    </div>
 
 
-<div class="tableWrap">
-<table id="table"></table>
-</div>
+    <div class="tableWrap">
+        <table id="table"></table>
+    </div>
 
 
 
-<script>
+    <script>
 
-const url =
-"https://docs.google.com/spreadsheets/d/1NPbo0DKDRRLVlahvahKweP4pHmEtntY7hCingz3Z78U/gviz/tq?tqx=out:csv&sheet=Public";
+        const url =
+            "https://docs.google.com/spreadsheets/d/1NPbo0DKDRRLVlahvahKweP4pHmEtntY7hCingz3Z78U/gviz/tq?tqx=out:csv&sheet=Public";
 
-let allRows = [];
+        let allRows = [];
 
 
-// CSV parser
-function parseCSV(text) {
+        // CSV parser
+        function parseCSV(text) {
 
-const rows = [];
-let cur = '';
-let row = [];
-let insideQuotes = false;
+            const rows = [];
+            let cur = '';
+            let row = [];
+            let insideQuotes = false;
 
-for(let i=0;i<text.length;i++){
+            for (let i = 0; i < text.length; i++) {
 
-const char = text[i];
+                const char = text[i];
 
-if(char === '"'){
+                if (char === '"') {
 
-if(text[i+1] === '"'){
-cur += '"';
-i++;
-}
-else{
-insideQuotes = !insideQuotes;
-}
+                    if (text[i + 1] === '"') {
+                        cur += '"';
+                        i++;
+                    }
+                    else {
+                        insideQuotes = !insideQuotes;
+                    }
 
-}
+                }
 
-else if(char === ',' && !insideQuotes){
-row.push(cur);
-cur='';
-}
+                else if (char === ',' && !insideQuotes) {
+                    row.push(cur);
+                    cur = '';
+                }
 
-else if((char === '\n' || char === '\r') && !insideQuotes){
+                else if ((char === '\n' || char === '\r') && !insideQuotes) {
 
-if(cur || row.length>0){
+                    if (cur || row.length > 0) {
 
-row.push(cur);
-rows.push(row);
+                        row.push(cur);
+                        rows.push(row);
 
-row=[];
-cur='';
+                        row = [];
+                        cur = '';
 
-}
+                    }
 
-}
+                }
 
-else{
-cur += char;
-}
+                else {
+                    cur += char;
+                }
 
-}
+            }
 
-if(cur || row.length>0){
-row.push(cur);
-rows.push(row);
-}
+            if (cur || row.length > 0) {
+                row.push(cur);
+                rows.push(row);
+            }
 
-return rows.map(r=>r.map(c=>c.trim()));
+            return rows.map(r => r.map(c => c.trim()));
 
-}
+        }
 
 
 
-// date format
-function formatDate(str){
+        // date format
+        function formatDate(str) {
 
-if(!str) return "";
+            if (!str) return "";
 
-let d = new Date(str);
+            let d = new Date(str);
 
-if(isNaN(d)) return str;
+            if (isNaN(d)) return str;
 
-const options = {
-day:"numeric",
-month:"long",
-year:"numeric"
-};
+            const options = {
+                day: "numeric",
+                month: "long",
+                year: "numeric"
+            };
 
-return d.toLocaleDateString("en-GB", options);
+            return d.toLocaleDateString("en-GB", options);
 
-}
+        }
 
 
 
-// render table
-function render(rows){
+        // render table
+        function render(rows) {
 
-let html = "";
+            let html = "";
 
-rows.forEach((row,i)=>{
+            rows.forEach((row, i) => {
 
-html += "<tr>";
+                html += "<tr>";
 
-row.forEach((c,j)=>{
+                row.forEach((c, j) => {
 
-if(i==0){
-html += "<th>"+c+"</th>";
-}
+                    if (i == 0) {
+                        html += "<th>" + c + "</th>";
+                    }
 
-else if(j==0){
-html += "<td>"+formatDate(c)+"</td>";
-}
-else if(j==1){
+                    else if (j == 0) {
+                        html += "<td>" + formatDate(c) + "</td>";
+                    }
+                    else if (j == 1) {
 
-let badge = "";
+                        let badge = "";
 
-if(isToday(row[0])){
-badge = " <span class='newBadge'>NEW</span>";
-}
+                        if (isToday(row[0])) {
+                            badge = " <span class='newBadge'>NEW</span>";
+                        }
 
-html += "<td class='companyCell'>"+c+badge+"</td>";
+                        html += "<td class='companyCell'>" + c + badge + "</td>";
 
-}
-else if(j==3){
+                    }
+                    else if (j == 3) {
 
-let cls="badge";
+                        let cls = "badge";
 
-if(c.includes("Intern")) cls+=" intern";
-else if(c.includes("Fresher")) cls+=" fresher";
-else if(c.includes("1+")) cls+=" y1";
-else if(c.includes("2+")) cls+=" y2";
-else if(c.includes("3+")) cls+=" y3";
+                        if (c.includes("Intern")) cls += " intern";
+                        else if (c.includes("Fresher")) cls += " fresher";
+                        else if (c.includes("1+")) cls += " y1";
+                        else if (c.includes("2+")) cls += " y2";
+                        else if (c.includes("3+")) cls += " y3";
 
-html += "<td><span class='"+cls+"'>"+c+"</span></td>";
+                        html += "<td><span class='" + cls + "'>" + c + "</span></td>";
 
-}
-else if(j==4){
+                    }
+                    else if (j == 4) {
 
-const link = c.trim();
+                        const link = c.trim();
 
-html +=
-"<td><a href='"+link+"' target='_blank'>Link to Apply</a></td>";
+                        html +=
+                            "<td><a href='" + link + "' target='_blank'>Link to Apply</a></td>";
 
-}
+                    }
 
-else{
-html += "<td>"+c+"</td>";
-}
+                    else {
+                        html += "<td>" + c + "</td>";
+                    }
 
-});
+                });
 
-html += "</tr>";
+                html += "</tr>";
 
-});
+            });
 
-document.getElementById("table").innerHTML = html;
+            document.getElementById("table").innerHTML = html;
 
-}
+        }
 
 
 
-// filter
-function filter(){
+        // filter
+        function filter() {
 
-const text =
-document.getElementById("search").value.toLowerCase();
+            const text =
+                document.getElementById("search").value.toLowerCase();
 
-const exp =
-document.getElementById("expFilter").value;
+            const exp =
+                document.getElementById("expFilter").value;
 
 
-const filtered =
-allRows.filter((row,i)=>{
+            const filtered =
+                allRows.filter((row, i) => {
 
-if(i==0) return true;
+                    if (i == 0) return true;
 
-let ok = true;
+                    let ok = true;
 
-if(text &&
-!row.join(" ").toLowerCase().includes(text))
-ok=false;
+                    if (text &&
+                        !row.join(" ").toLowerCase().includes(text))
+                        ok = false;
 
 
-if(exp && row[3] != exp)
-ok=false;
+                    if (exp && row[3] != exp)
+                        ok = false;
 
 
-return ok;
+                    return ok;
 
-});
+                });
 
-render(filtered);
+            render(filtered);
 
-}
+        }
 
-function isToday(dateStr){
+        function isToday(dateStr) {
 
-if(!dateStr) return false;
+            if (!dateStr) return false;
 
-let d = new Date(dateStr);
-let t = new Date();
+            let d = new Date(dateStr);
+            let t = new Date();
 
-return (
-d.getDate() === t.getDate() &&
-d.getMonth() === t.getMonth() &&
-d.getFullYear() === t.getFullYear()
-);
+            return (
+                d.getDate() === t.getDate() &&
+                d.getMonth() === t.getMonth() &&
+                d.getFullYear() === t.getFullYear()
+            );
 
-}
+        }
 
 
 
-// fetch data
-fetch(url)
+        // fetch data
+        fetch(url)
 
-.then(r=>r.text())
+            .then(r => r.text())
 
-.then(data=>{
+            .then(data => {
 
-allRows = parseCSV(data);
+                allRows = parseCSV(data);
 
 
-// reverse order (latest first)
-const header = allRows[0];
-const body = allRows.slice(1).reverse();
+                // reverse order (latest first)
+                const header = allRows[0];
+                const body = allRows.slice(1).reverse();
 
-allRows = [header, ...body];
+                allRows = [header, ...body];
 
-render(allRows);
+                render(allRows);
 
-});
+            });
 
 
 
-document.getElementById("search").oninput = filter;
-document.getElementById("expFilter").onchange = filter;
-</script>
+        document.getElementById("search").oninput = filter;
+        document.getElementById("expFilter").onchange = filter;
+    </script>
 
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
-<script>
+    <script>
 
-const firebaseConfig = {
-apiKey: "AIzaSyDyNSTmHw-VoKyn-pAMvWCodGre2IDw-NY",
-authDomain: "job-portal-count.firebaseapp.com",
-databaseURL: "https://job-portal-count-default-rtdb.firebaseio.com",
-projectId: "job-portal-count",
-};
+        const firebaseConfig = {
+            apiKey: "AIzaSyDyNSTmHw-VoKyn-pAMvWCodGre2IDw-NY",
+            authDomain: "job-portal-count.firebaseapp.com",
+            databaseURL: "https://job-portal-count-default-rtdb.firebaseio.com",
+            projectId: "job-portal-count",
+        };
 
-firebase.initializeApp(firebaseConfig);
+        firebase.initializeApp(firebaseConfig);
 
-const db = firebase.database();
+        const db = firebase.database();
 
-const userRef = db.ref("activeUsers");
+        const userRef = db.ref("activeUsers");
 
-// FIXED ID
-const myId =
-Date.now() + "_" + Math.floor(Math.random()*1000000);
+        // FIXED ID
+        const myId =
+            Date.now() + "_" + Math.floor(Math.random() * 1000000);
 
-const connectedRef = db.ref(".info/connected");
+        const connectedRef = db.ref(".info/connected");
 
-connectedRef.on("value", function(snap) {
+        connectedRef.on("value", function (snap) {
 
-if (snap.val() === true) {
+            if (snap.val() === true) {
 
-userRef.child(myId).set(true);
+                userRef.child(myId).set(true);
 
-userRef.child(myId).onDisconnect().remove();
+                userRef.child(myId).onDisconnect().remove();
 
-}
+            }
 
-});
+        });
 
-userRef.on("value", snap => {
+        userRef.on("value", snap => {
 
-const count = snap.numChildren();
+            const count = snap.numChildren();
 
-document.getElementById("liveUsers").innerText =
-"🔥 " + count + " users active now";
+            document.getElementById("liveUsers").innerText =
+                "🔥 " + count + " users active now";
 
-});
+        });
 
-</script>
+    </script>
 
-<footer class="footer">
+    <footer class="footer">
 
-<div class="footerBox">
+        <div class="footerBox">
 
-<h3>Join our community 🚀</h3>
+            <h3>Join our community 🚀</h3>
 
-<p>
-<a href="https://whatsapp.com/channel/0029Va9Q0lkDZ4LYNx6ukw2u" target="_blank">
-WhatsApp Channel
-</a>
-</p>
+            <p>
+                <a href="https://whatsapp.com/channel/0029Va9Q0lkDZ4LYNx6ukw2u" target="_blank">
+                    WhatsApp Channel
+                </a>
+            </p>
 
-<p>
-<a href="https://chat.whatsapp.com/CSL7Vd3L5ujHYUALFMm5xQ" target="_blank">
-WhatsApp Group
-</a>
-</p>
+            <p>
+                <a href="https://chat.whatsapp.com/CSL7Vd3L5ujHYUALFMm5xQ" target="_blank">
+                    WhatsApp Group
+                </a>
+            </p>
 
-<p>
-<a href="https://telegram.me/offcampus_phodenge" target="_blank">
-Telegram Community
-</a>
-</p>
+            <p>
+                <a href="https://telegram.me/offcampus_phodenge" target="_blank">
+                    Telegram Community
+                </a>
+            </p>
 
-<p>
-<a href="https://t.me/offcampusphodengediscussion" target="_blank">
-Telegram Discussion
-</a>
-</p>
+            <p>
+                <a href="https://t.me/offcampusphodengediscussion" target="_blank">
+                    Telegram Discussion
+                </a>
+            </p>
 
-</div>
+        </div>
 
 
-<div class="footerBox">
+        <div class="footerBox">
 
-<h3>Follow me 👨‍💻</h3>
+            <h3>Follow me 👨‍💻</h3>
 
-<p>
-<a href="https://www.linkedin.com/in/amanchowdhury046/" target="_blank">
-LinkedIn
-</a>
-</p>
+            <p>
+                <a href="https://www.linkedin.com/in/amanchowdhury046/" target="_blank">
+                    LinkedIn
+                </a>
+            </p>
 
-<p>
-<a href="https://t.me/offcampus_phodenge" target="_blank">
-Telegram
-</a>
-</p>
+            <p>
+                <a href="https://t.me/offcampus_phodenge" target="_blank">
+                    Telegram
+                </a>
+            </p>
 
-<p>
-<a href="https://www.instagram.com/aman_chowdhury_046/" target="_blank">
-Instagram
-</a>
-</p>
+            <p>
+                <a href="https://www.instagram.com/aman_chowdhury_046/" target="_blank">
+                    Instagram
+                </a>
+            </p>
 
-</div>
+        </div>
 
 
-<div class="footerNote">
+        <div class="footerNote">
 
-Connect with me on Linkedin, 
-Give feedback to improve next content
+            Connect with me on Linkedin,
+            Give feedback to improve next content
 
-</div>
+        </div>
 
-</footer>
+    </footer>
 
 
 </body>
+
 </html>
