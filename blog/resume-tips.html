@@ -482,22 +482,17 @@
 
 <script>
 
-    const blogId = "blog2";
+const blogId = "blog2";
+const ref = db.ref("blogReads/" + blogId);
 
-    const ref = db.ref("blogReads/" + blogId);
-
-    ref.transaction(current => {
-        return (current || 0) + 1;
-    });
-
-    ref.on("value", snap => {
-
-        const count = snap.val() || 0;
-
+// Increment count
+ref.transaction(current => (current || 0) + 1, (error, committed, snapshot) => {
+    if (error) console.error(error);
+    else if (committed) {
         document.getElementById("readCount").innerText =
-            "👁 " + count + " reads so far";
-
-    });
+            "🚀 " + snapshot.val() + " reads so far";
+    }
+});
 
 </script>
 
