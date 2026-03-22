@@ -305,6 +305,35 @@
                 padding: 6px;
             }
         }
+
+        /* Pagination CSS */
+        .pagination {
+            padding: 12px;
+            text-align: center;
+            background: white;
+        }
+
+        .pageBtn {
+
+            border: 1px solid #ccc;
+            padding: 6px 10px;
+            margin: 3px;
+            border-radius: 6px;
+            cursor: pointer;
+            background: #f5f5f5;
+        }
+
+        .pageBtn:hover {
+            background: #ddd;
+        }
+
+        .pageActive {
+
+            background: #4c6ef5;
+            color: white;
+            border: none;
+
+        }
     </style>
 </head>
 
@@ -379,6 +408,8 @@ OffCampus Phodenge (Aman Chowdhury)
         <table id="table"></table>
     </div>
 
+    <div id="pagination" class="pagination"></div>
+
 
 
     <script>
@@ -387,6 +418,10 @@ OffCampus Phodenge (Aman Chowdhury)
             "https://docs.google.com/spreadsheets/d/1NPbo0DKDRRLVlahvahKweP4pHmEtntY7hCingz3Z78U/gviz/tq?tqx=out:csv&sheet=Public";
 
         let allRows = [];
+
+        let currentPage = 1;
+        const rowsPerPage = 15;
+        let filteredRows = [];
 
 
         // CSV parser
@@ -473,21 +508,36 @@ OffCampus Phodenge (Aman Chowdhury)
         // render table
         function render(rows) {
 
+            filteredRows = rows;
+
+            const start = (currentPage - 1) * rowsPerPage + 1;
+            const end = start + rowsPerPage;
+
+            const header = rows[0];
+            const body = rows.slice(1);
+
+            const pageRows = body.slice(start - 1, end - 1);
+
             let html = "";
 
-            rows.forEach((row, i) => {
+            // header
+            html += "<tr>";
+            header.forEach(h => {
+                html += "<th>" + h + "</th>";
+            });
+            html += "</tr>";
+
+            // rows
+            pageRows.forEach(row => {
 
                 html += "<tr>";
 
                 row.forEach((c, j) => {
 
-                    if (i == 0) {
-                        html += "<th>" + c + "</th>";
-                    }
-
-                    else if (j == 0) {
+                    if (j == 0) {
                         html += "<td>" + formatDate(c) + "</td>";
                     }
+
                     else if (j == 1) {
 
                         let badge = "";
@@ -496,9 +546,10 @@ OffCampus Phodenge (Aman Chowdhury)
                             badge = " <span class='newBadge'>NEW</span>";
                         }
 
-                        html += "<td class='companyCell'>" + c + badge + "</td>";
-
+                        html +=
+                            "<td class='companyCell'>" + c + badge + "</td>";
                     }
+
                     else if (j == 3) {
 
                         let cls = "badge";
@@ -509,16 +560,15 @@ OffCampus Phodenge (Aman Chowdhury)
                         else if (c.includes("2+")) cls += " y2";
                         else if (c.includes("3+")) cls += " y3";
 
-                        html += "<td><span class='" + cls + "'>" + c + "</span></td>";
-
+                        html +=
+                            "<td><span class='" + cls + "'>" + c + "</span></td>";
                     }
+
                     else if (j == 4) {
 
-                        const link = c.trim();
-
                         html +=
-                            "<td><a href='" + link + "' target='_blank'>Link to Apply</a></td>";
-
+                            "<td><a href='" + c +
+                            "' target='_blank'>Link to Apply</a></td>";
                     }
 
                     else {
@@ -533,6 +583,132 @@ OffCampus Phodenge (Aman Chowdhury)
 
             document.getElementById("table").innerHTML = html;
 
+            renderPagination();
+
+        }
+
+        function renderPagination() {
+
+            const totalPages =
+                Math.ceil((filteredRows.length - 1) / rowsPerPage);
+
+            let html = "";
+
+            const maxShow = 5; // change if needed
+
+
+            // prev button
+            html +=
+                `<span class="pageBtn" onclick="prevPage()">◀</span>`;
+
+
+            // ---- calculate window ----
+
+            let half = Math.floor(maxShow / 2);
+
+            let start =
+                currentPage - half;
+
+            let end =
+                currentPage + half;
+
+
+            if (start < 1) {
+
+                start = 1;
+                end = maxShow;
+
+            }
+
+            if (end > totalPages) {
+
+                end = totalPages;
+                start = totalPages - maxShow + 1;
+
+            }
+
+            if (start < 1) start = 1;
+
+
+            // ---- first page ----
+
+            if (start > 1) {
+
+                html +=
+                    `<span class="pageBtn" onclick="goPage(1)">1</span>`;
+
+                if (start > 2) {
+                    html += `<span class="pageBtn">...</span>`;
+                }
+            }
+
+
+            // ---- middle pages ----
+
+            for (let i = start; i <= end; i++) {
+
+                let cls = "pageBtn";
+
+                if (i === currentPage) {
+                    cls += " pageActive";
+                }
+
+                html +=
+                    `<span class="${cls}" onclick="goPage(${i})">${i}</span>`;
+            }
+
+
+            // ---- last page ----
+
+            if (end < totalPages) {
+
+                if (end < totalPages - 1) {
+                    html += `<span class="pageBtn">...</span>`;
+                }
+
+                html +=
+                    `<span class="pageBtn" onclick="goPage(${totalPages})">${totalPages}</span>`;
+            }
+
+
+            // next button
+            html +=
+                `<span class="pageBtn" onclick="nextPage()">▶</span>`;
+
+
+            document.getElementById("pagination").innerHTML = html;
+        }
+
+        function goPage(p) {
+
+            currentPage = p;
+            render(filteredRows);
+
+        }
+
+
+        function nextPage() {
+
+            const total =
+                Math.ceil((filteredRows.length - 1) / rowsPerPage);
+
+            if (currentPage < total) {
+
+                currentPage++;
+                render(filteredRows);
+
+            }
+        }
+
+
+        function prevPage() {
+
+            if (currentPage > 1) {
+
+                currentPage--;
+                render(filteredRows);
+
+            }
         }
 
 
@@ -546,7 +722,6 @@ OffCampus Phodenge (Aman Chowdhury)
             const exp =
                 document.getElementById("expFilter").value;
 
-
             const filtered =
                 allRows.filter((row, i) => {
 
@@ -558,14 +733,14 @@ OffCampus Phodenge (Aman Chowdhury)
                         !row.join(" ").toLowerCase().includes(text))
                         ok = false;
 
-
                     if (exp && row[3] != exp)
                         ok = false;
-
 
                     return ok;
 
                 });
+
+            currentPage = 1;
 
             render(filtered);
 
