@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>2026 Placement Calendar - OffCampus Phodenge</title>
+    <link rel="icon" type="image/png" href="logo-white.png">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: #f5f5f5;
+            line-height: 1.5;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            background: #000;
+            color: white;
+            display: flex;
+            flex-direction: row-reverse;
+            gap: 20px;
+            padding: 10px 15px;
+            font-size: 14px;
+            align-items: center;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 5px 8px;
+            border-radius: 6px;
+        }
+
+        .navbar a:hover {
+            background: #333;
+        }
+
+        .topBanner {
+            background: linear-gradient(135deg, #1f4037, #2c7744);
+            color: white;
+            padding: 25px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .bannerLeft {
+            max-width: 60%;
+        }
+
+        .title {
+            font-size: 22px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+
+        .subtitle {
+            font-size: 13px;
+            margin-top: 3px;
+            color: #ddd;
+        }
+
+        .bannerRight {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+
+            padding: 6px 10px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: bold;
+            color: white;
+        }
+
+
+        .wa {
+            background: #25D366;
+        }
+
+        .tg {
+            background: #0088cc;
+        }
+
+        .li {
+            background: #0077b5;
+        }
+
+        .btn:hover {
+            opacity: 0.85;
+        }
+
+        @media(max-width:700px) {
+            .topBanner {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .bannerLeft {
+                max-width: 100%;
+            }
+
+            .title {
+                font-size: 24px;
+            }
+        }
+
+        /* Month Tabs - FIXED */
+        .month-tabs {
+            background: white;
+            padding: 0;
+            border-bottom: 2px solid #ddd;
+            display: flex;
+            overflow-x: auto;
+            scrollbar-width: thin;
+            /* data-month="january"; */
+        }
+
+        .month-tab {
+            padding: 15px 20px;
+            background: none;
+            border: none;
+            font-size: 16px;
+            font-weight: bold;
+            color: #666;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            white-space: nowrap;
+            flex-shrink: 0;
+            transition: all 0.3s;
+        }
+
+        .month-tab.active {
+            color: #1f4037;
+            border-bottom-color: #1f4037;
+            background: #f0f8f0;
+        }
+
+        .month-tab:hover {
+            background: #f5f5f5;
+        }
+
+        /* Table Styles */
+        .table-container {
+            background: white;
+            border-radius: 8px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+        }
+
+        th,
+        td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+        }
+
+        th {
+            background: linear-gradient(135deg, #222, #333);
+            color: white;
+            font-weight: bold;
+            position: sticky;
+            top: 0;
+            z-index: 5;
+        }
+
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        tr:hover {
+            background: #e8f5e8;
+        }
+
+        /* Badges */
+        .badge {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: bold;
+            color: white;
+            display: inline-block;
+            margin-left: 5px;
+        }
+
+        .y2 {
+            background: #795548;
+        }
+
+        .y3 {
+            background: #ff9800;
+        }
+
+        .girls {
+            background: #e91e63;
+        }
+
+        .p1 {
+            background: #4caf50;
+        }
+
+        .p2 {
+            background: #2196f3;
+        }
+
+        .taxfree {
+            background: linear-gradient(45deg, #ff9800, #ffc107);
+            color: #333;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .company-cell {
+            position: relative;
+            padding-right: 60px;
+        }
+
+        /* Footer */
+        .footer {
+            background: #111;
+            color: white;
+            padding: 30px 20px;
+        }
+
+        .footer h3 {
+            color: #ffd54f;
+            margin-bottom: 15px;
+        }
+
+        .footer a {
+            color: #00d4ff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+
+            th,
+            td {
+                padding: 10px 8px;
+                font-size: 13px;
+            }
+
+            .month-tab {
+                padding: 12px 15px;
+                font-size: 14px;
+            }
+        }
+
+        .navbar a.active {
+            background: #333;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="navbar">
+        <a href="https://whatsapp.com/channel/0029Va9Q0lkDZ4LYNx6ukw2u" target="_blank">
+            Community</a>
+        <a href="index.html" class="active">Placement Calendar</a>
+        <a href="../blog/index.html">Blog</a>
+        <a href="../">Home</a>
+    </div>
+
+    <div class="topBanner">
+        <div class="bannerLeft">
+            <div class="title">🚀 2026 PLACEMENT CALENDAR</div>
+            <div class="subtitle">Complete Internship Timeline | Ahead of 90% Students</div>
+            <div class="subtitle">Join our WhatsApp or Telegram channel to get the latest updates on time</div>
+        </div>
+        <div class="bannerRight">
+            <a href="https://whatsapp.com/channel/0029Va9Q0lkDZ4LYNx6ukw2u" target="_blank" class="btn wa">WhatsApp Channel</a>
+            <a href="https://telegram.me/offcampus_phodenge" target="_blank" class="btn tg">Telegram</a>
+            <a href="https://www.linkedin.com/in/amanchowdhury046/" target="_blank" class="btn li">LinkedIn</a>
+        </div>
+    </div>
+
+    <div class="month-tabs" id="monthTabs"></div>
+
+    <div class="table-container" id="tableContainer">
+        <!-- Tables will be populated by JavaScript -->
+    </div>
+
+    <footer class="footer">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <div
+                style="text-align: center; color: #ccc;">
+                <p>Made with ❤️ by <a href="https://linkedin.com/in/amanchowdhury046">Aman
+                        Chowdhury</a> | OffCampus Phodenge</p>
+                <p>Save & Share | Updated March 2026</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Complete 2026 Placement Calendar Data
+        const calendarData = {
+            'january': {
+                title: 'January 2026 🚀',
+                rows: [
+                    ['Trilogy CodeNation', 'Jan-Aug', 'Any Year<span class="badge y2">2nd/3rd</span>', '₹1.5L/month<span class="badge taxfree">Tax-Free</span>', 'Dubai training, easy PPO'],
+                    ['ServiceNow Women Code', 'Jan-Mar', '<span class="badge girls">Girls Only</span>', '>₹1L/month<span class="badge p1">PPO</span>', 'All years eligible'],
+                    ['AmEx CodeStreet', 'Jan-Mar', 'Technical Degrees<span class="badge y2">Any</span>', '₹35-75K/month', 'AmEx website'],
+                    ['Uber Hackathon', 'Jan-Feb', '3rd Year<span class="badge y3">DSA Heavy</span>', '₹1.5L/month', 'Prep DSA now'],
+                    ['Uber C++/Star', 'Nov-Dec (Prep)', '2nd Year', '₹1.5L/month', 'High learning opportunities']
+                ]
+            },
+            'february': {
+                title: 'February 2026 ⚡',
+                rows: [
+                    ['JP Morgan Code for Good', 'Feb-Mar', '2nd/3rd Year', '₹80-90K/month<span class="badge p1">PPO</span>', 'London/Glasgow possible'],
+                    ['Summer of Bitcoin', 'Feb & Mid-Year', 'Any Year<span class="badge y2">All</span>', '~$3K USD Bitcoin', 'Crypto open source'],
+                    ['Flipkart Runway (Girls)', 'Feb-Mar', '<span class="badge girls">Girls</span>', '~₹1L/month', '2nd/3rd year females']
+                ]
+            },
+            'march': {
+                title: 'March 2026 🔥',
+                rows: [
+                    ['GitHub Externship', 'Mar & Nov', '3rd/4th Year', '₹25-30K', 'Boosts MS/LinkedIn chances'],
+                    ['Agoda Tech Intern', 'Mar-Apr', '3rd Year', '~₹1L (6 months)', 'Strong program'],
+                    ['Myntra Hacker Ramp', 'Mar-Apr', '2nd/3rd Year', '₹80-90K + benefits', 'Great exposure'],
+                    ['Juspay Hiring Challenge', 'Mar', '3rd Year', '~₹50K/month', 'Competitive'],
+                    ['Cisco Ideathon', 'Mar-Jun', '2nd/3rd Year', '~₹70K/month', 'Good WLB'],
+                    ['Walmart CodeHS (Girls)', 'Mar', '<span class="badge girls">Girls 3rd Year</span>', '~₹90K/month', 'Pure DSA']
+                ]
+            },
+            'april-may': {
+                title: 'April-May 2026 📈',
+                rows: [
+                    ['LinkedIn Coaching', 'Apr-May', '2nd/3rd Year', '~₹1L + iPhone', 'Great benefits']
+                ]
+            },
+            'may-june': {
+                title: 'May-June 2026 🎯',
+                rows: [
+                    ['Flipkart Women/GRID', 'May-Jun', 'Females/2nd-3rd', '~₹1L/month', 'Multiple programs'],
+                    ['Swiggy Launchpad', 'May-Jul', 'Engineering', '₹20-45K/month', 'Startup style']
+                ]
+            },
+            'july-august': {
+                title: 'July-August 2026 💰',
+                rows: [
+                    ['DE Shaw Ascent (Girls)', 'Jul-Aug', '<span class="badge girls">Girls</span>', '₹50-60K/month', '2nd/3rd year'],
+                    ['Goldman Sachs Summer Analyst', 'Jul', '3rd Year', '~₹1L/month', 'Strong brand value'],
+                    ['Flipkart GRID', 'Jul-Aug', '2nd/3rd Year', '~₹1L/month', 'Hackathon based']
+                ]
+            },
+            'september-october': {
+                title: 'Sep-Oct 2026 🏆',
+                rows: [
+                    ['EY Techathon', 'Sep / Oct-Dec', '2nd/3rd Year', '~₹1L/month', 'Check portal now'],
+                    ['Adobe India', 'Aug-Oct', '2026/27 Grads', '~₹60K/month', 'DSA + Development']
+                ]
+            },
+            'november-december': {
+                title: 'November-December 2026 ⏰',
+                rows: [
+                    ['Google STEP (Girls)', 'Dec', '2nd Year<span class="badge girls">Girls Focus</span>', '₹77K-1.22L', 'DSA → PPI → Full-time'],
+                    ['Intuit', 'Nov-Dec', '3rd Year', '~₹1L/month', 'Good culture'],
+                    ['Morgan Stanley', 'Nov-Dec', '3rd/4th Year', '~₹1L/month', 'Investment banking'],
+                    ['AmEx Geek Goddess', 'Nov-Dec', '<span class="badge girls">3rd Year Girls</span>', '~₹1L/month', 'Diversity program'],
+                    ['Amazon WoW (Girls)', 'Nov-Dec', '<span class="badge girls">1st-3rd Girls</span>', '~₹1L/month', 'Women of World'],
+                    ['Amazon SDE Intern', 'Sep-Dec', '2nd/3rd Year', '₹1.25L/month', 'Careers portal']
+                ]
+            }
+        };
+
+        let currentMonth = 'january';
+
+        // FIXED: Generate month tabs with data attributes
+        function createMonthTabs() {
+            const tabsContainer = document.getElementById('monthTabs');
+            let tabsHtml = '';
+            let tabCount = 0;
+
+            Object.keys(calendarData).forEach(month => {
+                const isActive = tabCount === 0 ? 'active' : '';
+                tabsHtml += `<button class="month-tab ${isActive}" data-month="${month}">${calendarData[month].title.split(' ')[0]}</button>`;
+                tabCount++;
+            });
+
+            tabsContainer.innerHTML = tabsHtml;
+
+            // Add event listeners to tabs
+            document.querySelectorAll('.month-tab').forEach(tab => {
+                tab.addEventListener('click', function () {
+                    showMonth(this.getAttribute('data-month'));
+                });
+            });
+        }
+
+        // FIXED: Show specific month table
+        function showMonth(month) {
+
+            document.querySelectorAll('.month-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            document.querySelector(`[data-month="${month}"]`).classList.add('active');
+
+            const section = document.getElementById("section-" + month);
+
+            if (section) {
+                section.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
+            }
+
+        }
+
+        function renderAllMonths() {
+
+            const container = document.getElementById('tableContainer');
+
+            let html = "";
+
+            Object.keys(calendarData).forEach(month => {
+
+                const data = calendarData[month];
+
+                html += `
+    <div id="section-${month}" style="margin-bottom:40px">
+
+    <h2 style="padding:20px; margin:0; background:#f8f9fa; border-bottom:2px solid #e9ecef;">
+    ${data.title}
+    </h2>
+
+    <table>
+    <thead>
+    <tr>
+    <th>Company/Program</th>
+    <th>Timeline</th>
+    <th>Eligibility</th>
+    <th>Stipend</th>
+    <th>Notes</th>
+    </tr>
+    </thead>
+    <tbody>
+    `;
+
+                data.rows.forEach(row => {
+
+                    html += `
+        <tr>
+        <td class="company-cell">${row[0]}</td>
+        <td>${row[1]}</td>
+        <td>${row[2]}</td>
+        <td>${row[3]}</td>
+        <td>${row[4]}</td>
+        </tr>
+        `;
+
+                });
+
+                html += `
+    </tbody>
+    </table>
+    </div>
+    `;
+
+            });
+
+            container.innerHTML = html;
+
+        }
+
+        // Initialize
+        window.onload = function () {
+            createMonthTabs();
+            renderAllMonths();
+        };
+    </script>
+</body>
+
+</html>

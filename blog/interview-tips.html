@@ -226,13 +226,30 @@ box-shadow:0 2px 8px rgba(0,0,0,0.1);
         }
 
 
-        /* FOOTER */
-
+        /* Footer */
         .footer {
-            text-align: center;
-            color: gray;
-            font-size: 12px;
-            margin-top: 40px;
+            background: #111;
+            color: white;
+            padding: 30px 20px;
+        }
+
+        .footer h3 {
+            color: #ffd54f;
+            margin-bottom: 15px;
+        }
+
+        .footer a {
+            color: #00d4ff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .navbar a.active {
+            background: #333;
         }
     </style>
 
@@ -243,11 +260,12 @@ box-shadow:0 2px 8px rgba(0,0,0,0.1);
 
     <div class="navbar">
         <a href="https://whatsapp.com/channel/0029Va9Q0lkDZ4LYNx6ukw2u" target="_blank">
-            💬 Community
+            Community
         </a>
-        <a href="index.html">📘 Blog</a>
+        <a href="../placement-calendar/index.html">Placement Calendar</a>
+        <a href="index.html" class="active">Blog</a>
 
-        <a href="/job-portal/">🏠 Home</a>
+        <a href="/job-portal/">Home</a>
 
     </div>
 
@@ -390,16 +408,18 @@ box-shadow:0 2px 8px rgba(0,0,0,0.1);
 
 
         </div>
-
-
-
-        <div class="footer">
-            © OffCampus Phodenge
-        </div>
-
-
-
     </div>
+
+    <footer class="footer">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <div
+                style="text-align: center; color: #ccc;">
+                <p>Made with ❤️ by <a href="https://linkedin.com/in/amanchowdhury046">Aman
+                        Chowdhury</a> | OffCampus Phodenge</p>
+                <p>Save & Share | Updated March 2026</p>
+            </div>
+        </div>
+    </footer>
 
 
 </body>

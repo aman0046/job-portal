@@ -124,6 +124,10 @@
             font-family: Arial, Helvetica, sans-serif;
             background: #f3f4f6;
             margin: 0;
+
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
 
@@ -136,6 +140,28 @@
             font-size: 22px;
             font-weight: bold;
             letter-spacing: 1px;
+        }
+
+        /* Footer */
+        .footer {
+            background: #111;
+            color: white;
+            padding: 30px 20px;
+        }
+
+        .footer h3 {
+            color: #ffd54f;
+            margin-bottom: 15px;
+        }
+
+        .footer a {
+            color: #00d4ff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
         }
 
 
@@ -201,20 +227,28 @@
         .readBtn:hover {
             background: #1d4ed8;
         }
+        .navbar a.active {
+            background: #333;
+        }
+
+        .page-content{
+            flex: 1;
+        }
     </style>
 
 </head>
 
 <body>
+    <div class="page-content">
     <div class="navbar">
-
         <a href="https://whatsapp.com/channel/0029Va9Q0lkDZ4LYNx6ukw2u" target="_blank">
-            💬 Community
+            Community
         </a>
+        <a href="../placement-calendar/index.html">Placement Calendar</a>
 
-        <a href="index.html">📘 Blog</a>
+        <a href="index.html" class="active">Blog</a>
 
-        <a href="/job-portal/">🏠 Home</a>
+        <a href="../">Home</a>
 
     </div>
 
@@ -256,6 +290,18 @@
         Loading...
 
     </div>
+    </div>
+
+    <footer class="footer">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <div
+                style="text-align: center; color: #ccc;">
+                <p>Made with ❤️ by <a href="https://linkedin.com/in/amanchowdhury046">Aman
+                        Chowdhury</a> | OffCampus Phodenge</p>
+                <p>Save & Share | Updated March 2026</p>
+            </div>
+        </div>
+    </footer>
 
 
     <script>
@@ -293,7 +339,6 @@ Read Blog
             });
 
     </script>
-
 
 </body>
 
