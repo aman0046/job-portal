@@ -239,19 +239,19 @@
                 max-width: 100%;
             }
 
-            .title{
+            .title {
                 font-size: 15px;
             }
 
-            .subtitle{
+            .subtitle {
                 font-size: 13px;
             }
 
-            .navbar{
+            .navbar {
                 font-size: 11px;
             }
 
-            .btn{
+            .btn {
                 font-size: 10px;
             }
 
@@ -584,6 +584,71 @@
             background: #e0edff;
             border-radius: 12px;
         }
+
+        /* normal hover */
+        table tr:hover {
+            background: #eef6ff;
+            cursor: pointer;
+        }
+
+        /* clicked row */
+        .activeRow {
+            background: #dbeafe !important;
+            /* light blue */
+            transition: 0.2s;
+        }
+
+        .tipBox {
+            margin: 15px;
+            padding: 12px 16px;
+            border-radius: 12px;
+
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            background: linear-gradient(90deg, #e0f2fe, #dbeafe);
+            border: 1px solid #bfdbfe;
+
+            color: #1e3a8a;
+            font-size: 14px;
+        }
+
+        .tipIcon {
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .tipText {
+            line-height: 1.4;
+        }
+
+        .premiumBanner {
+            position: relative;
+            /* needed for close button */
+        }
+
+        /* CLOSE BUTTON */
+        .closeBanner {
+            position: absolute;
+            top: 10px;
+            right: 12px;
+
+            font-size: 14px;
+            cursor: pointer;
+            color: #666;
+
+            background: rgba(255, 255, 255, 0.6);
+            padding: 4px 8px;
+            border-radius: 6px;
+
+            transition: 0.2s;
+        }
+
+        .closeBanner:hover {
+            background: rgba(255, 255, 255, 0.9);
+            color: black;
+        }
     </style>
 </head>
 
@@ -652,8 +717,8 @@ OffCampus Phodenge (Aman Chowdhury)
     </div>
 
     <!-- PREMIUM HANDPICKED BANNER -->
-    <div class="premiumBanner">
-
+    <div class="premiumBanner" id="premiumBanner">
+        <div class="closeBanner" onclick="closeBanner()">✖</div>
         <div class="bannerTop">
             <div class="medal">⭐</div>
 
@@ -708,6 +773,18 @@ OffCampus Phodenge (Aman Chowdhury)
 
     <div class="tableWrap">
         <table id="table"></table>
+    </div>
+
+    <div class="tipBox">
+        <div class="tipIcon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-info-circle" viewBox="0 0 16 16">
+                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                <path
+                    d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0" />
+            </svg></div>
+        <div class="tipText">
+            <strong>Tip:</strong> Click on “Apply Now” to go to the official application link. Keep your resume updated!
+        </div>
     </div>
 
     <div id="pagination" class="pagination"></div>
@@ -938,6 +1015,30 @@ OffCampus Phodenge (Aman Chowdhury)
             document.getElementById("table").innerHTML = html;
 
             renderPagination();
+
+            setTimeout(() => {
+
+                const rows = document.querySelectorAll("#table tr");
+
+                rows.forEach((row, index) => {
+
+                    // skip header row
+                    if (index === 0) return;
+
+                    row.onclick = () => {
+
+                        // remove previous active
+                        document.querySelectorAll(".activeRow")
+                            .forEach(r => r.classList.remove("activeRow"));
+
+                        // add to clicked row
+                        row.classList.add("activeRow");
+                    };
+
+                });
+
+            }, 0);
+
         }
 
         function renderPagination() {
@@ -1064,7 +1165,9 @@ OffCampus Phodenge (Aman Chowdhury)
             }
         }
 
-
+        function closeBanner() {
+            document.getElementById("premiumBanner").style.display = "none";
+        }
 
         // filter
         function filter() {
@@ -1113,7 +1216,6 @@ OffCampus Phodenge (Aman Chowdhury)
             );
 
         }
-
 
 
         // fetch data
