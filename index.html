@@ -52,22 +52,24 @@
             position: sticky;
             top: 0;
             z-index: 10;
+            display: flex;
+            gap: 10px;
         }
 
         input,
         select {
             padding: 8px;
             margin: 5px;
-            width: 100%;
-            max-width: 200px;
+            width: 50%;
+            max-width: 300px;
         }
 
         .tableWrap {
-            width: 100%;
+            padding: 20px;
             overflow-x: auto;
         }
 
-        table {
+        /* table {
             width: 100%;
             min-width: 900px;
             border-collapse: collapse;
@@ -86,6 +88,44 @@
         th {
             background: #222;
             color: white;
+        } */
+
+        table {
+            width: 100%;
+            min-width: 900px;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+        }
+
+        /* HEADER */
+        th {
+            background: linear-gradient(135deg, #1f2937, #374151);
+            color: white;
+            font-size: 13px;
+            padding: 15px;
+            white-space: nowrap;
+        }
+
+        /* ROWS */
+        td {
+            padding: 10px;
+            font-size: 14px;
+            border-bottom: 1px solid #eee;
+            white-space: nowrap;
+        }
+
+        /* HOVER EFFECT */
+        tr:hover {
+            background: #f9fafb;
+        }
+
+        /* REMOVE OLD STRIP COLORS */
+        tr:nth-child(even),
+        tr:nth-child(odd) {
+            background: white;
         }
 
         a {
@@ -144,6 +184,7 @@
             font-size: 22px;
             font-weight: bold;
             letter-spacing: 1px;
+            display: flex;
         }
 
 
@@ -174,6 +215,9 @@
             font-weight: bold;
 
             color: white;
+            display: flex;
+            gap: 5px;
+            align-items: center;
 
         }
 
@@ -208,6 +252,24 @@
                 max-width: 100%;
             }
 
+            .title{
+                font-size: 15px;
+            }
+
+            .subtitle{
+                font-size: 13px;
+            }
+
+        }
+
+        /* IMPORTANT NOTE COLUMN FIX */
+        th:nth-child(5),
+        td:nth-child(5) {
+            width: 400px;
+            min-width: 400px;
+            max-width: 400px;
+            word-wrap: break-word;
+            white-space: normal;
         }
 
         tr:nth-child(even) {
@@ -219,21 +281,21 @@
         }
 
         .newBadge {
-            position: absolute;
-            right: 10px;
-            top: 11px;
-
-            background: linear-gradient(45deg, #ff9800, #ff3d00);
-            color: white;
-
-            font-size: 10px;
-            padding: 2px 6px;
-            border-radius: 8px;
-
-            font-weight: bold;
-
+            display: inline-block;
+            margin-top: 4px;
+            padding: 2px 8px;
+            font-size: 11px;
+            font-weight: 600;
+            border-radius: 12px;
             animation: pulseBadge 1.5s infinite;
-            box-shadow: 0 0 6px rgba(255, 100, 0, 0.7);
+            background: #dcfce7;
+            color: #16a34a;
+        }
+
+        .companyCol {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: flex-start;
         }
 
         @keyframes pulseBadge {
@@ -255,6 +317,7 @@
         .companyCell {
             position: relative;
             padding-right: 50px;
+            font-weight: 600;
         }
 
 
@@ -290,10 +353,14 @@
 
         @media (max-width:600px) {
 
-            th,
+            th {
+                font-size: 12px;
+                padding: 15px;
+            }
+
             td {
                 font-size: 12px;
-                padding: 6px;
+                padding: 10px;
             }
         }
 
@@ -325,8 +392,202 @@
             border: none;
 
         }
+
         .navbar a.active {
             background: #333;
+        }
+
+
+
+        /* PREMIUM BANNER */
+        .premiumBanner {
+            margin: 10px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #fff7ed, #fff);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid #f3e8ff;
+            overflow: hidden;
+        }
+
+        .bannerTop {
+            display: flex;
+            gap: 12px;
+            padding: 15px;
+            align-items: flex-start;
+        }
+
+        .medal {
+            font-size: 26px;
+            background: #ffe0b2;
+            padding: 10px;
+            border-radius: 50%;
+        }
+
+        .bannerHeading {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+
+        .bannerSub {
+            font-size: 13px;
+            color: #444;
+            margin-bottom: 8px;
+        }
+
+        .chips span {
+            display: inline-block;
+            background: #f1f5f9;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-right: 6px;
+            margin-top: 4px;
+        }
+
+        /* LIVE STRIP */
+        .liveStrip {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            overflow: hidden;
+            background: linear-gradient(90deg, #22c55e, #4ade80);
+            color: white;
+            padding: 8px 12px;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            overflow: hidden;
+        }
+
+        /* LEFT SIDE (STATIC) */
+        .liveLeft {
+            flex-shrink: 0;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-weight: 600;
+        }
+
+        /* RIGHT SIDE (SCROLL AREA ONLY) */
+        .liveRight {
+            overflow: hidden;
+            flex: 1;
+            margin-left: 10px;
+            padding-left: 10px;
+            border-left: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        /* SCROLL TEXT */
+        .scroll {
+            display: inline-block;
+            white-space: nowrap;
+            animation: scrollMove 12s linear infinite;
+            font-weight: 600;
+            color: black;
+        }
+
+        @keyframes scrollMove {
+            from {
+                transform: translateX(100%);
+            }
+
+            to {
+                transform: translateX(-100%);
+            }
+        }
+
+        .liveDot {
+            width: 8px;
+            height: 8px;
+            background: red;
+            border-radius: 50%;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            50% {
+                opacity: 0.3;
+            }
+        }
+
+        /* FIXED SCROLL TEXT */
+        /* .scroll {
+            display: inline-block;
+            white-space: nowrap;
+            padding-left: 100%;
+            animation: scrollInside 12s linear infinite;
+        }
+
+        /* IMPORTANT: correct animation */
+        @keyframes scrollInside {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        .applyBtn {
+            background: #16a34a;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        .applyBtn:hover {
+            background: #15803d;
+        }
+
+        .handpickedBadge {
+            background: linear-gradient(135deg, #04441c, #169f49);
+            display: flex;
+            align-items: center;
+            color: white;
+            font-size: 11px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            margin-left: 8px;
+            font-weight: bold;
+            vertical-align: middle;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+        }
+
+        .dateCell {
+            line-height: 1.2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* DATE */
+        .date {
+            font-size: 13px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        /* TIME BADGE (LIKE IMAGE 🔥) */
+        .timeBadge {
+            display: inline-block;
+            margin-top: 4px;
+            padding: 2px 8px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #1d4ed8;
+            background: #e0edff;
+            border-radius: 12px;
         }
     </style>
 </head>
@@ -352,6 +613,7 @@ OffCampus Phodenge (Aman Chowdhury)
 
             <div class="title">
                 OFFCAMPUS PHODENGE
+                <span class="handpickedBadge">✔ Master Job Sheet</span>
             </div>
 
             <div class="subtitle">
@@ -367,17 +629,68 @@ OffCampus Phodenge (Aman Chowdhury)
         <div class="bannerRight">
 
             <a href="https://whatsapp.com/channel/0029Va9Q0lkDZ4LYNx6ukw2u" target="_blank" class="btn wa">
-                WhatsApp Channel
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-whatsapp" viewBox="0 0 16 16">
+                    <path
+                        d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232" />
+                </svg>WhatsApp Channel
             </a>
 
             <a href="https://telegram.me/offcampus_phodenge" target="_blank" class="btn tg">
-                Telegram
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-telegram" viewBox="0 0 16 16">
+                    <path
+                        d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.287 5.906q-1.168.486-4.666 2.01-.567.225-.595.442c-.03.243.275.339.69.47l.175.055c.408.133.958.288 1.243.294q.39.01.868-.32 3.269-2.206 3.374-2.23c.05-.012.12-.026.166.016s.042.12.037.141c-.03.129-1.227 1.241-1.846 1.817-.193.18-.33.307-.358.336a8 8 0 0 1-.188.186c-.38.366-.664.64.015 1.088.327.216.589.393.85.571.284.194.568.387.936.629q.14.092.27.187c.331.236.63.448.997.414.214-.02.435-.22.547-.82.265-1.417.786-4.486.906-5.751a1.4 1.4 0 0 0-.013-.315.34.34 0 0 0-.114-.217.53.53 0 0 0-.31-.093c-.3.005-.763.166-2.984 1.09" />
+                </svg>Telegram
             </a>
 
             <a href="https://www.linkedin.com/in/amanchowdhury046/" target="_blank" class="btn li">
-                LinkedIn
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-linkedin" viewBox="0 0 16 16">
+                    <path
+                        d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248S2.4 3.226 2.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016l.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z" />
+                </svg>LinkedIn
             </a>
 
+        </div>
+
+    </div>
+
+    <!-- PREMIUM HANDPICKED BANNER -->
+    <div class="premiumBanner">
+
+        <div class="bannerTop">
+            <div class="medal">⭐</div>
+
+            <div>
+                <div class="bannerHeading">Handpicked Jobs Only</div>
+                <div class="bannerSub">
+                    We list only <b>high-quality, verified opportunities from top companies</b> — so you don’t waste
+                    time applying everywhere!
+                </div>
+
+                <div class="chips">
+                    <span>✅ No fake listings</span>
+                    <span>🛡 Verified by community</span>
+                    <span>👑 Top product companies</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="liveStrip">
+            <div class="liveLeft">
+                <span class="liveDot"></span> LIVE
+            </div>
+
+            <div class="liveRight">
+                <div class="scroll">
+                    🚀 New jobs added daily &nbsp;&nbsp; • &nbsp;&nbsp; TCS &nbsp;&nbsp; • &nbsp;&nbsp; Microsoft
+                    &nbsp;&nbsp; •&nbsp;&nbsp; Adobe &nbsp;&nbsp; • &nbsp;&nbsp; Amazon &nbsp;&nbsp; • &nbsp;&nbsp;
+                    Google &nbsp;&nbsp; • &nbsp;&nbsp; Infosys &nbsp;&nbsp; • &nbsp;&nbsp; Deloitte &nbsp;&nbsp; •
+                    &nbsp;&nbsp; +50 more
+                    companies &nbsp;&nbsp;
+                </div>
+            </div>
         </div>
 
     </div>
@@ -479,22 +792,52 @@ OffCampus Phodenge (Aman Chowdhury)
 
 
         // date format
-        function formatDate(str) {
+        // function formatDate(str) {
+
+        //     if (!str) return "";
+
+        //     let d = new Date(str);
+
+        //     if (isNaN(d)) return str;
+
+        //     const options = {
+        //         day: "numeric",
+        //         month: "long",
+        //         year: "numeric"
+        //     };
+
+        //     return d.toLocaleDateString("en-GB", options);
+
+        // }
+
+        function formatDateTime(str) {
 
             if (!str) return "";
 
             let d = new Date(str);
-
             if (isNaN(d)) return str;
 
-            const options = {
+            const dateOptions = {
                 day: "numeric",
-                month: "long",
+                month: "short",
                 year: "numeric"
             };
 
-            return d.toLocaleDateString("en-GB", options);
+            const timeOptions = {
+                hour: "2-digit",
+                minute: "2-digit",
+                hour12: true
+            };
 
+            const date = d.toLocaleDateString("en-GB", dateOptions);
+            const time = d.toLocaleTimeString("en-US", timeOptions); // 👈 important
+
+            return `
+    <div class="dateCell">
+        <div class="date">${date}</div>
+        <div class="timeBadge">${time}</div>
+    </div>
+`;
         }
 
 
@@ -514,22 +857,39 @@ OffCampus Phodenge (Aman Chowdhury)
 
             let html = "";
 
-            // header
+            // // header
+            // html += "<tr>";
+            // header.forEach(h => {
+            //     html += "<th>" + h + "</th>";
+            // });
+            // html += "</tr>";
+
             html += "<tr>";
-            header.forEach(h => {
+
+            const order = [0, 1, 2, 3, 5, 4]; // 👈 swapped 4 & 5
+
+            order.forEach(i => {
+                let h = header[i];
+                if (i == 0) h = "Posted";
                 html += "<th>" + h + "</th>";
             });
+
             html += "</tr>";
 
+            // rows
             // rows
             pageRows.forEach(row => {
 
                 html += "<tr>";
 
-                row.forEach((c, j) => {
+                const order = [0, 1, 2, 3, 5, 4]; // 👈 swapped Important Note & Apply
+
+                order.forEach(j => {
+
+                    let c = row[j];
 
                     if (j == 0) {
-                        html += "<td>" + formatDate(c) + "</td>";
+                        html += "<td>" + formatDateTime(c) + "</td>";
                     }
 
                     else if (j == 1) {
@@ -540,8 +900,13 @@ OffCampus Phodenge (Aman Chowdhury)
                             badge = " <span class='newBadge'>NEW</span>";
                         }
 
-                        html +=
-                            "<td class='companyCell'>" + c + badge + "</td>";
+                        html += `
+                                <td class="companyCell">
+                                    <div class="companyCol">
+                                        <span>${c}</span>
+                                        ${badge}
+                                    </div>
+                                </td>`;
                     }
 
                     else if (j == 3) {
@@ -559,10 +924,10 @@ OffCampus Phodenge (Aman Chowdhury)
                     }
 
                     else if (j == 4) {
-
+                        // APPLY LINK (now last column)
                         html +=
-                            "<td><a href='" + c +
-                            "' target='_blank'>Link to Apply</a></td>";
+                            `<td><div class="dateCell"><a class='applyBtn' href='" + c +
+                            "' target='_blank'>Apply Now →</a></div></td>`;
                     }
 
                     else {
@@ -578,7 +943,6 @@ OffCampus Phodenge (Aman Chowdhury)
             document.getElementById("table").innerHTML = html;
 
             renderPagination();
-
         }
 
         function renderPagination() {
@@ -832,8 +1196,7 @@ OffCampus Phodenge (Aman Chowdhury)
 
     <footer class="footer">
         <div style="max-width: 1200px; margin: 0 auto;">
-            <div
-                style="text-align: center; color: #ccc;">
+            <div style="text-align: center; color: #ccc;">
                 <p>Made with ❤️ by <a href="https://linkedin.com/in/amanchowdhury046">Aman
                         Chowdhury</a> | OffCampus Phodenge</p>
                 <p>Save & Share | Updated March 2026</p>
