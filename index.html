@@ -633,6 +633,139 @@
             color: white;
             margin-right: 4px;
         }
+
+        /* GRID VIEW */
+        .gridWrap {
+            padding: 20px;
+            display: grid;
+            gap: 20px;
+        }
+
+        /* Desktop */
+        @media(min-width:1024px) {
+            .gridWrap {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* Tablet */
+        @media(min-width:600px) and (max-width:1023px) {
+            .gridWrap {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Mobile */
+        @media(max-width:599px) {
+            .gridWrap {
+                grid-template-columns: repeat(1, 1fr);
+            }
+        }
+
+        /* CARD */
+        .jobCard {
+            background: white;
+            border-radius: 14px;
+            padding: 16px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: 0.2s;
+        }
+
+        .jobCard:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        /* top strip */
+        .cardTop {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        /* company */
+        .cardCompany {
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        /* role */
+        .cardRole {
+            font-size: 14px;
+            color: #555;
+            margin: 5px 0 10px;
+        }
+
+        /* note */
+        .cardNote {
+            font-size: 13px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        /* bottom */
+        .cardBottom {
+            display: flex;
+            justify-content: end;
+            align-items: center;
+        }
+
+        .cardMeta {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .divider {
+            color: #999;
+        }
+
+        .dateTime {
+            color: #374151;
+            margin-top: 2px;
+        }
+
+        .viewToggle {
+            display: flex;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            padding: 3px;
+            backdrop-filter: blur(6px);
+            margin-left: auto;
+        }
+
+        .toggleBtn {
+            border: none;
+            padding: 6px 14px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        /* ACTIVE TAB */
+        .toggleBtn.active {
+            background: white;
+            color: #111;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+        }
+
+        /* HOVER */
+        .toggleBtn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .bottomSection {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
     </style>
 </head>
 
@@ -748,12 +881,23 @@
             <option>3+ Years</option>
         </select>
 
+        <div class="viewToggle">
+            <button class="toggleBtn" id="gridToggle" onclick="setView('grid')">
+                🔳 Grid
+            </button>
+            <button class="toggleBtn" id="tableToggle" onclick="setView('table')">
+                📋 Table
+            </button>
+        </div>
+
     </div>
 
 
     <div class="tableWrap">
         <table id="table"></table>
     </div>
+
+    <div id="gridWrap" class="gridWrap" style="display:none;"></div>
 
     <div class="tipBox">
         <div class="tipIcon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -871,6 +1015,10 @@
 `;
         }
 
+        window.addEventListener("resize", () => {
+            setDefaultView();
+        });
+
 
 
         // render table
@@ -890,7 +1038,7 @@
 
             html += "<tr>";
 
-            const order = [0, 1, 2, 3, 5, 4]; 
+            const order = [0, 1, 2, 3, 5, 4];
 
             order.forEach(i => {
                 let h = header[i];
@@ -904,7 +1052,7 @@
 
                 html += "<tr>";
 
-                const order = [0, 1, 2, 3, 5, 4]; 
+                const order = [0, 1, 2, 3, 5, 4];
 
                 order.forEach(j => {
 
@@ -1087,6 +1235,9 @@
 
             currentPage = p;
             render(filteredRows);
+            if (currentView === "grid") {
+                renderGrid(filteredRows);
+            }
 
         }
 
@@ -1100,6 +1251,9 @@
 
                 currentPage++;
                 render(filteredRows);
+                if (currentView === "grid") {
+                    renderGrid(filteredRows);
+                }
 
             }
         }
@@ -1111,6 +1265,9 @@
 
                 currentPage--;
                 render(filteredRows);
+                if (currentView === "grid") {
+                    renderGrid(filteredRows);
+                }
 
             }
         }
@@ -1150,6 +1307,10 @@
 
             render(filtered);
 
+            // 🔥 FIX: re-render grid if grid view active
+            if (currentView === "grid") {
+                renderGrid(filtered);
+            }
         }
 
         function isToday(dateStr) {
@@ -1165,6 +1326,128 @@
                 d.getFullYear() === t.getFullYear()
             );
 
+        }
+
+        let currentView = "table";
+
+        function setView(view) {
+            currentView = view;
+
+            // toggle UI active state
+            document.getElementById("gridToggle").classList.remove("active");
+            document.getElementById("tableToggle").classList.remove("active");
+
+            if (view === "grid") {
+                document.getElementById("gridToggle").classList.add("active");
+                document.querySelector(".tableWrap").style.display = "none";
+                document.getElementById("gridWrap").style.display = "grid";
+                renderGrid(filteredRows);
+            } else {
+                document.getElementById("tableToggle").classList.add("active");
+                document.querySelector(".tableWrap").style.display = "block";
+                document.getElementById("gridWrap").style.display = "none";
+            }
+        }
+
+        function formatDateTimeInline(dateStr) {
+
+            if (!dateStr) return "";
+
+            let d = new Date(dateStr);
+            if (isNaN(d)) return "";
+
+            const date = d.toLocaleDateString("en-GB", {
+                day: "numeric",
+                month: "short"
+            });
+
+            const time = d.toLocaleTimeString("en-US", {
+                hour: "2-digit",
+                minute: "2-digit",
+                hour12: true
+            });
+
+            return `${date} - ${time}`;
+        }
+
+        function formatTimeOnly(dateStr) {
+
+            if (!dateStr) return "";
+
+            let d = new Date(dateStr);
+            if (isNaN(d)) return "";
+
+            return d.toLocaleTimeString("en-US", {
+                hour: "2-digit",
+                minute: "2-digit",
+                hour12: true
+            });
+        }
+
+        function renderGrid(rows) {
+
+            const start = (currentPage - 1) * rowsPerPage + 1;
+            const end = start + rowsPerPage;
+
+            const body = rows.slice(1);
+            const pageRows = body.slice(start - 1, end - 1);
+
+            let html = "";
+
+            pageRows.forEach(row => {
+
+                let company = row[1];
+                let role = row[2];
+                let exp = row[3];
+                let note = row[5];
+                let link = row[4];
+                let date = row[0];
+
+                let badgeClass = "badge";
+                if (exp.includes("Intern")) badgeClass += " intern";
+                else if (exp.includes("Fresher")) badgeClass += " fresher";
+                else if (exp.includes("1+")) badgeClass += " y1";
+                else if (exp.includes("2+")) badgeClass += " y2";
+                else if (exp.includes("3+")) badgeClass += " y3";
+
+                let isNew = isToday(date) ? `<span class="newBadge">NEW</span>` : "";
+
+                html += `
+    <div class="jobCard">
+
+        <div class="cardTop">
+            <div class="cardMeta">
+        ${isToday(date) ? `<span class="newBadge">NEW</span><span class="divider">|</span>` : ""}
+        <span class="dateTime">Posted On: ${formatDateTimeInline(date)}</span>
+    </div>
+        </div>
+
+        <div class="cardCompany">${company}</div>
+        <div class="cardRole">${role}</div>
+
+        <div class="bottomSection">
+            <span class="${badgeClass}">${exp}</span>
+            <div class="cardBottom">
+                <a class="applyBtn" href="${link}" target="_blank">Apply →</a>
+            </div>
+        </div>
+
+    </div>
+    `;
+            });
+
+            document.getElementById("gridWrap").innerHTML = html;
+        }
+
+        function setDefaultView() {
+            if (window.innerWidth <= 600) {
+                currentView = "grid";
+            } else {
+                currentView = "table";
+            }
+
+            // apply UI
+            setView(currentView);
         }
 
 
@@ -1184,6 +1467,7 @@
 
                 allRows = [header, ...body];
 
+                setDefaultView();
                 render(allRows);
 
             });
