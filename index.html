@@ -69,27 +69,6 @@
             overflow-x: auto;
         }
 
-        /* table {
-            width: 100%;
-            min-width: 900px;
-            border-collapse: collapse;
-            background: white;
-            overflow-x: auto;
-        }
-
-        th,
-        td {
-            padding: 8px;
-            border: 1px solid #ddd;
-            font-size: 14px;
-            vertical-align: top;
-        }
-
-        th {
-            background: #222;
-            color: white;
-        } */
-
         table {
             width: 100%;
             min-width: 900px;
@@ -668,10 +647,6 @@
         <a href="/job-portal/" class="active">Home</a>
     </div>
 
-    <!-- <header>
-OffCampus Phodenge (Aman Chowdhury)
-</header> -->
-
     <div class="topBanner">
 
         <div class="bannerLeft">
@@ -866,27 +841,6 @@ OffCampus Phodenge (Aman Chowdhury)
 
         }
 
-
-
-        // date format
-        // function formatDate(str) {
-
-        //     if (!str) return "";
-
-        //     let d = new Date(str);
-
-        //     if (isNaN(d)) return str;
-
-        //     const options = {
-        //         day: "numeric",
-        //         month: "long",
-        //         year: "numeric"
-        //     };
-
-        //     return d.toLocaleDateString("en-GB", options);
-
-        // }
-
         function formatDateTime(str) {
 
             if (!str) return "";
@@ -934,16 +888,9 @@ OffCampus Phodenge (Aman Chowdhury)
 
             let html = "";
 
-            // // header
-            // html += "<tr>";
-            // header.forEach(h => {
-            //     html += "<th>" + h + "</th>";
-            // });
-            // html += "</tr>";
-
             html += "<tr>";
 
-            const order = [0, 1, 2, 3, 5, 4]; // 👈 swapped 4 & 5
+            const order = [0, 1, 2, 3, 5, 4]; 
 
             order.forEach(i => {
                 let h = header[i];
@@ -953,13 +900,11 @@ OffCampus Phodenge (Aman Chowdhury)
 
             html += "</tr>";
 
-            // rows
-            // rows
             pageRows.forEach(row => {
 
                 html += "<tr>";
 
-                const order = [0, 1, 2, 3, 5, 4]; // 👈 swapped Important Note & Apply
+                const order = [0, 1, 2, 3, 5, 4]; 
 
                 order.forEach(j => {
 
