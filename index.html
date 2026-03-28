@@ -51,7 +51,7 @@
         }
 
         .controls {
-            padding: 10px;
+            padding: 10px 20px;
             background: white;
             position: sticky;
             top: 0;
@@ -88,7 +88,6 @@
         input,
         select {
             padding: 8px;
-            margin: 5px;
             width: 50%;
             max-width: 300px;
             font-weight: 600;
@@ -797,19 +796,40 @@
             align-items: center;
         }
 
-        input::placeholder {
-            font-weight: 600;
-            color: #000;
+        /* SEARCH BOX WRAPPER */
+        .searchBox {
+            display: flex;
+            align-items: center;
+            background: #e5e7eb;
+            border-radius: 16px;
+            border: 1px solid;
+            box-shadow:
+                inset 4px 4px 8px rgba(0, 0, 0, 0.05),
+                inset -4px -4px 8px rgba(255, 255, 255, 0.7);
         }
 
-        input::-webkit-input-placeholder {
-            font-weight: 600;
-            color: #000;
+        /* ICON */
+        .searchIcon {
+            font-size: 16px;
+            color: #6b7280;
+            margin-left: 10px;
         }
 
-        input:-ms-input-placeholder {
-            font-weight: 600;
+        /* INPUT */
+        .searchBox input {
+            border: none;
+            outline: none;
+            background: transparent;
+            width: 100%;
+            font-size: 14px;
+            color: #111;
+            min-width: 300px;
+        }
+
+        /* PLACEHOLDER */
+        .searchBox input::placeholder {
             color: #000;
+            font-weight: 600;
         }
     </style>
 </head>
@@ -915,9 +935,14 @@
 
     <div class="controls">
 
-        <input type="text" id="search" placeholder="Search company / role">
+        <div class="searchBox">
+            <span class="searchIcon">
+                🔍
+            </span>
+            <input type="text" id="search" placeholder="Search company / role">
+        </div>
 
-        <select id="expFilter">
+        <select class="searchBox" id="expFilter">
             <option value="">All Experience</option>
             <option>Intern</option>
             <option>Fresher's</option>
