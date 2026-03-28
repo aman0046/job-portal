@@ -1362,6 +1362,9 @@
         function setView(view) {
             currentView = view;
 
+            // ✅ SAVE in localStorage
+            localStorage.setItem("viewPreference", view);
+
             // toggle UI active state
             document.getElementById("gridToggle").classList.remove("active");
             document.getElementById("tableToggle").classList.remove("active");
@@ -1471,13 +1474,16 @@
         }
 
         function setDefaultView() {
-            if (window.innerWidth <= 600) {
-                currentView = "grid";
+
+            const savedView = localStorage.getItem("viewPreference");
+
+            if (savedView) {
+                currentView = savedView;  // ✅ user preference wins
             } else {
-                currentView = "table";
+                // fallback based on device
+                currentView = window.innerWidth <= 600 ? "grid" : "table";
             }
 
-            // apply UI
             setView(currentView);
         }
 
