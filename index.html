@@ -800,7 +800,8 @@
         .searchBox {
             display: flex;
             align-items: center;
-            background: #e5e7eb;
+            /* background: #e5e7eb; */
+            background: linear-gradient(145deg, #f0f0f0, #dcdcdc);
             border-radius: 16px;
             border: 1px solid;
             box-shadow:
@@ -1166,8 +1167,8 @@
                     else if (j == 4) {
                         // APPLY LINK (now last column)
                         html +=
-                            `<td><div class="dateCell"><a class='applyBtn' href='" + c +
-                            "' target='_blank'>Apply Now →</a></div></td>`;
+                            `<td><div class="dateCell"><a class='applyBtn' href="${c}"
+                            target='_blank'>Apply Now →</a></div></td>`;
                     }
 
                     else {
